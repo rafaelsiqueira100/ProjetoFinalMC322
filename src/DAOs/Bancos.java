@@ -15,7 +15,7 @@ public class Bancos extends Dao {
     }
     
     public int quantosBancos() throws SQLException {
-        String sql = "SELECT COUNT(codBanco) FROM Banco";
+        String sql = "SELECT COUNT(codBanco) FROM Banco;";
         
         this.bd.prepareStatement(sql);
 
@@ -31,7 +31,7 @@ public class Bancos extends Dao {
     public Banco[] getBancos() throws SQLException, Exception {
         Banco[] bancos = new Banco[this.quantosBancos()];
         
-        String sql = "SELECT * FROM Banco";
+        String sql = "SELECT * FROM Banco;";
         
         this.bd.prepareStatement(sql);
         
@@ -73,17 +73,17 @@ public class Bancos extends Dao {
         if (emprestimoMaximo == null || emprestimoMaximo.compareTo(BigDecimal.ZERO) <= 0) {
             throw new Exception("Bancos: inserção com valor de empréstimo máximo inválido");
         }
-        
-        String sql = "INSERT INTO Banco VALUES (?, ?, ?, ?, ?, ?)";
+        int proximoCodigoBanco = getProximoCodigo("Banco", "codBanco");
+        String sql = "INSERT INTO Banco VALUES (?, ?, ?, ?, ?, ?, ?);";
         
         this.bd.prepareStatement(sql);
-        
-        this.bd.setString    (1, nome);
-        this.bd.setFloat     (2, jurosPoupanca);
-        this.bd.setFloat     (3, jurosEmprestimo);        
-        this.bd.setBigDecimal(4, emprestimoMinimo);
-        this.bd.setBigDecimal(5, emprestimoMaximo);
-        this.bd.setInt       (6, mesesEmprestimo);
+        this.bd.setInt       (1, proximoCodigoBanco);
+        this.bd.setString    (2, nome);
+        this.bd.setFloat     (3, jurosPoupanca);
+        this.bd.setFloat     (4, jurosEmprestimo);        
+        this.bd.setBigDecimal(5, emprestimoMinimo);
+        this.bd.setBigDecimal(6, emprestimoMaximo);
+        this.bd.setInt       (7, mesesEmprestimo);
         
         int resultado = this.bd.executeUpdate();
         

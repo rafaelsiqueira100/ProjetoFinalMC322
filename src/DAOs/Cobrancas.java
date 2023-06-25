@@ -20,7 +20,7 @@ public class Cobrancas extends Dao {
 
         int quantasCobrancas = -1;
 
-        String sql = "SELECT COUNT(codCobranca) FROM Cobranca WHERE codContaBancaria = ?";
+        String sql = "SELECT COUNT(codCobranca) FROM Cobranca WHERE codContaBancaria = ?;";
 
         this.bd.prepareStatement(sql);
 
@@ -42,7 +42,7 @@ public class Cobrancas extends Dao {
 
         Cobranca[] cobrancas = new Cobranca[this.quantasCobrancas(codContaBancaria)];
 
-        String sql = "SELECT * FROM Cobranca WHERE codContaBancaria = ?";
+        String sql = "SELECT * FROM Cobranca WHERE codContaBancaria = ?;";
 
         this.bd.prepareStatement(sql);
 
@@ -66,7 +66,7 @@ public class Cobrancas extends Dao {
 		}
 		Cobranca[] cobrancasPagas = new Cobranca[this.quantasCobrancas(codContaBancaria)];
 
-		String sql = "SELECT * FROM Cobranca WHERE codContaBancaria = ? and foiPaga = ?";
+		String sql = "SELECT * FROM Cobranca WHERE codContaBancaria = ? and foiPaga = ?;";
 
 		this.bd.prepareStatement(sql);
 

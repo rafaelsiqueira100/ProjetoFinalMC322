@@ -22,12 +22,13 @@ public class Depositos  extends Dao {
             throw new Exception("Saques: inclusão de saque com valor inválido");
         }
 
-        String sql = "INSERT INTO Deposito VALUES (?, ?)";
+        int proximoCodigoDeposito = getProximoCodigo("Deposito", "codDeposito");
+        String sql = "INSERT INTO Deposito VALUES (?, ?, ?);";
 
         this.bd.prepareStatement(sql);
-
-        this.bd.setInt       (1, codContaBancaria);
-        this.bd.setBigDecimal(2, valor);
+		this.bd.setInt		 (1, proximoCodigoDeposito);
+        this.bd.setInt       (2, codContaBancaria);
+        this.bd.setBigDecimal(3, valor);
 
         int resultado = this.bd.executeUpdate();
 
@@ -43,7 +44,7 @@ public class Depositos  extends Dao {
 
 	        int quantosDepositos = -1;
 
-	        String sql = "SELECT COUNT(codDeposito) FROM Deposito WHERE codContaBancaria = ?";
+	        String sql = "SELECT COUNT(codDeposito) FROM Deposito WHERE codContaBancaria = ?;";
 
 	        this.bd.prepareStatement(sql);
 
@@ -65,7 +66,7 @@ public class Depositos  extends Dao {
 
 	        Deposito[] depositos = new Deposito[this.quantosDepositos(codContaBancaria)];
 
-	        String sql = "SELECT * FROM Deposito WHERE codContaBancaria = ?";
+	        String sql = "SELECT * FROM Deposito WHERE codContaBancaria = ?;";
 
 	        this.bd.prepareStatement(sql);
 

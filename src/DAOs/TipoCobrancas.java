@@ -24,7 +24,7 @@ public class TipoCobrancas extends Dao {
         
         TipoCobranca aRetornar = null;
         
-        String sql = "SELECT * FROM TipoCobranca WHERE codTipoCobranca = ?";
+        String sql = "SELECT * FROM TipoCobranca WHERE codTipoCobranca = ?;";
         
         this.bd.prepareStatement(sql);
         

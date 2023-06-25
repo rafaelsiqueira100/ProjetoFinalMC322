@@ -22,17 +22,18 @@ public class Clientes extends Dao {
         if (nomeCliente == null || nomeCliente.equals("")) {
             throw new Exception("Clientes: inserção de cliente nulo");
         }            
-        
-        String sql = "INSERT INTO Cliente VALUES (?)";
+        int proximoCodigoCliente = getProximoCodigo("Cliente", "codCliente");
+        String sql = "INSERT INTO Cliente VALUES (?,?);";
         
         this.bd.prepareStatement(sql);
         
-        this.bd.setString(1, nomeCliente);
+        this.bd.setInt(1, proximoCodigoCliente);
+        this.bd.setString(2, nomeCliente);
         
         this.bd.executeUpdate(); 
         this.bd.commit();
         
-        String consultaAoInserido = "SELECT codCliente FROM Cliente WHERE nome = ?";
+        String consultaAoInserido = "SELECT codCliente FROM Cliente WHERE nome = ?;";
         
         this.bd.prepareStatement(consultaAoInserido);
         

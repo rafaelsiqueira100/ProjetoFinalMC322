@@ -29,15 +29,17 @@ public class Emprestimos  extends Dao {
             throw new Exception("Emprestimos: inserção com valor original inválido");
         }
         
-        String sql = "INSERT INTO Emprestimo VALUES (?, ?, ?, ?, ?)";
+        int proximoCodigoEmprestimo = getProximoCodigo("Emprestimo", "codEmprestimo");
+        String sql = "INSERT INTO Emprestimo VALUES (?, ?, ?, ?, ?, ?);";
         
         this.bd.prepareStatement(sql);
-        
-        this.bd.setInt       (1, codContaBancaria);
-        this.bd.setInt       (2, codContaBancaria); //Inicialmente, a conta que pagará o empréstimo é a mesma conta na qual ele será depositado
-        this.bd.setInt       (3, mesesParaPagar);
-        //this.bd.setBigDecimal(4, valorOriginal);  Calcular o valor para quitar
-        this.bd.setBigDecimal(5, valorOriginal);
+
+        this.bd.setInt       (1, proximoCodigoEmprestimo);
+        this.bd.setInt       (2, codContaBancaria);
+        this.bd.setInt       (3, codContaBancaria); //Inicialmente, a conta que pagará o empréstimo é a mesma conta na qual ele será depositado
+        this.bd.setInt       (4, mesesParaPagar);
+        //this.bd.setBigDecimal(5, valorOriginal);  Calcular o valor para quitar
+        this.bd.setBigDecimal(6, valorOriginal);
         
         int resultado = this.bd.executeUpdate();
         

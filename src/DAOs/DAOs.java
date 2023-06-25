@@ -22,7 +22,16 @@ public class DAOs {
 
     static {
         try {
-            DAOs.bd = new MeuPreparedStatement ("com.microsoft.sqlserver.jdbc.SQLServerDriver", "jdbc:sqlserver://regulus:1433;databasename=PRII16191",  "PRII16191", "PRII16191");
+            /*
+            String drv,
+                                 String strCon,
+                                 String usr,
+                                 String senha
+             */
+            DAOs.bd = new MeuPreparedStatement ("org.postgresql.Driver",
+             "jdbc:postgresql:User=sammy;Password=668791470;Database=postgres;Server=127.0.0.1;Port=5432;",
+               "sammy",
+                "668791470");
 
             DAOs.tabelaClientes        = new Clientes();
             DAOs.tabelaBancos          = new Bancos();

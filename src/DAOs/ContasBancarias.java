@@ -31,15 +31,17 @@ public class ContasBancarias  extends Dao {
             throw new Exception("ContasBancarias: inclusão com código de agência inválido");
         }
         
-        String sql = "INSERT INTO ContaBancaria VALUES (?, ?, ?, ?, ?)";
+        int proximoCodigoContaBancaria = getProximoCodigo("ContaBancaria", "codContaBancaria");
+
+        String sql = "INSERT INTO ContaBancaria VALUES (?, ?, ?, ?, ?, ?);";
         
         this.bd.prepareStatement(sql);
-        
-        this.bd.setInt       (1, codCliente);
-        this.bd.setInt       (2, codBanco);
-        this.bd.setString    (3, senha);
-        this.bd.setBigDecimal(4, BigDecimal.ZERO);
-        this.bd.setInt       (5, codAgencia);
+        this.bd.setInt       (1, proximoCodigoDeposito);
+        this.bd.setInt       (2, codCliente);
+        this.bd.setInt       (3, codBanco);
+        this.bd.setString    (4, senha);
+        this.bd.setBigDecimal(5, BigDecimal.ZERO);
+        this.bd.setInt       (6, codAgencia);
         
         int resultado = this.bd.executeUpdate();
         
@@ -53,7 +55,7 @@ public class ContasBancarias  extends Dao {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
         }        
         
-        String sql = "SELECT * FROM ContaBancaria WHERE senha = ?";
+        String sql = "SELECT * FROM ContaBancaria WHERE senha = ?;";
         
         this.bd.prepareStatement(sql);
         
@@ -74,7 +76,7 @@ public class ContasBancarias  extends Dao {
             throw new Exception("ContasBancarias: consulta ao Banco de ContaBancária nula");
         }
         
-        String sql = "SELECT * FROM Banco WHERE codBanco = (SELECT codBanco FROM ContaBancaria WHERE codContaBancaria = ?)";
+        String sql = "SELECT * FROM Banco WHERE codBanco = (SELECT codBanco FROM ContaBancaria WHERE codContaBancaria = ?);";
         
         this.bd.prepareStatement(sql);
         
@@ -99,7 +101,7 @@ public class ContasBancarias  extends Dao {
             throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
         }
         
-        String sql = "UPDATE ContaBancaria SET saldo = saldo - ? WHERE codContaBancaria = ?";
+        String sql = "UPDATE ContaBancaria SET saldo = saldo - ? WHERE codContaBancaria = ?;";
         
         this.bd.prepareStatement(sql);
         
@@ -122,7 +124,7 @@ public class ContasBancarias  extends Dao {
             throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
         }
         
-        String sql = "UPDATE ContaBancaria SET saldo = saldo + ? WHERE codContaBancaria = ?";
+        String sql = "UPDATE ContaBancaria SET saldo = saldo + ? WHERE codContaBancaria = ?;";
         
         this.bd.prepareStatement(sql);
         

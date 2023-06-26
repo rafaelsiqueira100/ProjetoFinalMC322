@@ -1,6 +1,7 @@
 
 package DAOs;
 
+import java.sql.ResultSet;
 import main.MeuPreparedStatement;
 
 

@@ -29,9 +29,10 @@ public class DAOs {
                                  String senha
              */
             DAOs.bd = new MeuPreparedStatement ("org.postgresql.Driver",
-             "jdbc:postgresql:User=sammy;Password=668791470;Database=postgres;Server=127.0.0.1;Port=5432;",
-               "sammy",
-                "668791470");
+             //"jdbc:postgresql:User=postgres;Password=postgres;Database=postgres;Server=localhost;Port=5432;",
+                                        "jdbc:postgresql://localhost:5432/postgres",
+                                           "postgres",
+                                         "postgres");
 
             DAOs.tabelaClientes        = new Clientes();
             DAOs.tabelaBancos          = new Bancos();

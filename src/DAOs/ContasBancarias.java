@@ -36,7 +36,7 @@ public class ContasBancarias  extends Dao {
         String sql = "INSERT INTO ContaBancaria VALUES (?, ?, ?, ?, ?, ?);";
         
         this.bd.prepareStatement(sql);
-        this.bd.setInt       (1, proximoCodigoDeposito);
+        this.bd.setInt       (1, proximoCodigoContaBancaria);
         this.bd.setInt       (2, codCliente);
         this.bd.setInt       (3, codBanco);
         this.bd.setString    (4, senha);

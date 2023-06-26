@@ -5,9 +5,7 @@ import java.math.BigDecimal;
 * @author Rafael Andre Siqueira
 *  Classe DBO que representa a entidade de Saque
 */
-public class Saque{
-private int codSaque;
-private int codContaBancaria;
+public class Saque implements Operacao{
 private BigDecimal valor;
 /**
  * Construtor do objeto DBO

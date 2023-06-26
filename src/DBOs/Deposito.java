@@ -5,10 +5,8 @@ import java.math.BigDecimal;
 * @author Rafael Andre Siqueira
 *  Classe DBO que representa a entidade de Deposito
 */
-public class Deposito{
+public class Deposito implements Operacao{
 private int codDeposito;
-private int codContaBancaria;
-private BigDecimal valor;
 /**
  * Construtor do objeto DBO
  * @param codDeposito c�digo do Deposito

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 *  Classe DBO que representa a entidade de Cobranca
 */
 public class Cobranca implements Operacao{
+    private int codContaBancaria;
+    private BigDecimal valor;
     private int codCobranca;
     private int codTipoCobranca;
     private boolean foiPaga;

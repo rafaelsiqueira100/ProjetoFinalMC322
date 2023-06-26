@@ -1,10 +1,8 @@
 package DBOs;
 
+import java.math.BigDecimal;
+
 public interface Operacao{
-    
-    private int codContaBancaria;
-    
-    private BigDecimal valor;
     
     public int getCodContaBancaria();
     

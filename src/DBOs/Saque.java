@@ -6,7 +6,9 @@ import java.math.BigDecimal;
 *  Classe DBO que representa a entidade de Saque
 */
 public class Saque implements Operacao{
-private BigDecimal valor;
+    private int codSaque;
+    private int codContaBancaria;
+    private BigDecimal valor;
 /**
  * Construtor do objeto DBO
  * @param codSaque c�digo do saque

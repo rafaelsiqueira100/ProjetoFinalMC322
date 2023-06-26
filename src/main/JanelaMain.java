@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ze
  */
 public class JanelaMain extends javax.swing.JFrame {
 
@@ -109,8 +108,8 @@ public class JanelaMain extends javax.swing.JFrame {
         try {
             String senha = txtSenha.getText();
         
-            ContaBancaria contaAtual = DAOs.getTabelaContasBancarias().getContaBancaria(senha);
-            //ContaBancaria contaAtual = new ContaBancaria(1,1,1, "abc", new BigDecimal(2.0),"1" );
+            //ContaBancaria contaAtual = DAOs.getTabelaContasBancarias().getContaBancaria(senha);
+            ContaBancaria contaAtual = new ContaBancaria(1,1,1, "abc", new BigDecimal(2.0),"1" );
             if (contaAtual == null) { //Essa conta não existe
                 JOptionPane.showMessageDialog(this, "A senha digitada não existe!");
             } else {

@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 */
 public class Deposito implements Operacao{
 private int codDeposito;
+private int codContaBancaria;
+private BigDecimal valor;
 /**
  * Construtor do objeto DBO
  * @param codDeposito c�digo do Deposito

@@ -24,7 +24,6 @@ public class Clientes extends Dao {
     private Cliente[] getClientes() throws Exception {
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
-        int byteRead;
         ArrayList<entidades.Cliente> registros = new ArrayList<>();
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(',');
@@ -34,7 +33,7 @@ public class Clientes extends Dao {
               ));
         }
         streamIn.close();
-        return registros.toArray(Cliente);
+        return registros.toArray();
     }
     public int getProximoCodigo() throws Exception{
         Cliente[] clientes = getClientes();

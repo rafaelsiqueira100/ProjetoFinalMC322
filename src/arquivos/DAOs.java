@@ -1,9 +1,6 @@
 package arquivos;
 
-import main.MeuPreparedStatement;
 public class DAOs {
-    private static MeuPreparedStatement bd;
-
     private static Clientes        tabelaClientes;
     private static Bancos          tabelaBancos;
     private static ContasBancarias tabelaContasBancarias;
@@ -16,18 +13,6 @@ public class DAOs {
 
     static {
         try {
-            /*
-            String drv,
-                                 String strCon,
-                                 String usr,
-                                 String senha
-             */
-            DAOs.bd = new MeuPreparedStatement ("org.postgresql.Driver",
-             //"jdbc:postgresql:User=postgres;Password=postgres;Database=postgres;Server=localhost;Port=5432;",
-                                        "jdbc:postgresql://localhost:5432/postgres",
-                                           "postgres",
-                                         "postgres");
-
             DAOs.tabelaClientes        = new Clientes();
             DAOs.tabelaBancos          = new Bancos();
             DAOs.tabelaContasBancarias = new ContasBancarias();
@@ -44,9 +29,6 @@ public class DAOs {
         }
     }
 
-    public static MeuPreparedStatement getBD () {
-        return DAOs.bd;
-    }
 
     /**
      * Pega o dao de clientes

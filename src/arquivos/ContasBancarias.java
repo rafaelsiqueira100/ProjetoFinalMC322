@@ -2,17 +2,20 @@ package arquivos;
 
 import DBOs.Banco;
 import DBOs.ContaBancaria;
+import entidades.Cliente;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class ContasBancarias {
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "contasbancarias.csv";
+    private static final String nomeArquivoBanco = "bancos.csv";
     public ContasBancarias() {    }
     
     public int getProximoCodigo() throws Exception{
@@ -42,33 +45,16 @@ public class ContasBancarias {
         }
         
         int proximoCodigoContaBancaria = getProximoCodigo();
-
-        /*String sql = "INSERT INTO ContaBancaria VALUES (?, ?, ?, ?, ?, ?);";
-        
-        this.bd.prepareStatement(sql);
-        this.bd.setInt       (1, proximoCodigoContaBancaria);
-        this.bd.setInt       (2, codCliente);
-        this.bd.setInt       (3, codBanco);
-        this.bd.setString    (4, senha);
-        this.bd.setBigDecimal(5, BigDecimal.ZERO);
-        this.bd.setInt       (6, codAgencia);
-        
-        int resultado = this.bd.executeUpdate();
-        
-        this.bd.commit();
-        
-        return resultado;*/
         try{
             int proximoCodigo = getProximoCodigo();
-            streamOut = new BufferedWriter( new FileReader(nomeArquivo));
+            streamOut = new BufferedWriter( nomeArquivo);
             streamOut.write(
                 Integer.toString(proximoCodigo) +","+
-                nome +","+
-                Float.toString(jurosPoupanca)+","+
-                Float.toString(jurosEmprestimo)+","+
-                Integer.toString(mesesEmprestimo)+","+
-                BigDecimal.toString(emprestimoMinimo)+","+
-                BigDecimal.toString(emprestimoMaximo)
+                Integer.toString(codCliente) +","+
+                Integer.toString(codBanco)+","+
+                senha+","+
+                "0.0,"+
+                Integer.toString(codAgencia)
             );
             streamOut.close();
         }
@@ -82,42 +68,60 @@ public class ContasBancarias {
         if (senha == null || senha.equals("")) {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
         }        
-        
-        String sql = "SELECT * FROM ContaBancaria WHERE senha = ?;";
-        
-        this.bd.prepareStatement(sql);
-        
-        this.bd.setString(1, senha);
-        
-        ResultSet resultadoConta = this.bd.executeQuery();
-        
-        ContaBancaria aRetornar = null;
-        if (resultadoConta.next()) {
-            aRetornar = new ContaBancaria(resultadoConta.getInt(1), resultadoConta.getInt(2), resultadoConta.getInt(3), resultadoConta.getString(4), resultadoConta.getBigDecimal(5), resultadoConta.getString(6));
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        String linha;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(",");
+            if(valores[3].equals(senha)){
+                streamIn.close();
+                return new ContaBancaria(
+                    Integer.parseInt(valores[0]),
+                    Integer.parseInt(valores[1]),
+                    Integer.parseInt(valores[2]),
+                    valores[3],
+                    new BigDecimal(Float.parseFloat(valores[4])),
+                    valores[5]
+              );
+            }
         }
-        
-        return aRetornar;
+        return null;
     }
     
     public Banco getBanco(ContaBancaria conta) throws Exception {
         if (conta == null) {
             throw new Exception("ContasBancarias: consulta ao Banco de ContaBancária nula");
         }
-        
-        String sql = "SELECT * FROM Banco WHERE codBanco = (SELECT codBanco FROM ContaBancaria WHERE codContaBancaria = ?);";
-        
-        this.bd.prepareStatement(sql);
-        
-        this.bd.setInt(1, conta.getCodContaBancaria());
-        
-        ResultSet resultadoBanco = this.bd.executeQuery();
-        
-        Banco aConsultar = null;
-        if (resultadoBanco.next()) {
-            aConsultar = new Banco(resultadoBanco.getInt(1), resultadoBanco.getString(2), resultadoBanco.getFloat(3), resultadoBanco.getFloat(4), resultadoBanco.getBigDecimal(5), resultadoBanco.getBigDecimal(6), resultadoBanco.getInt(7));
-        }            
-        
-        return aConsultar;
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        String linha;
+        int codBanco;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(',');
+            int codContaBancaria = Integer.parseInt(valores[0]);
+            if(codContaBancaria == conta.getCodContaBancaria()){
+                codBanco = Integer.parseInt(valores[2]);
+            }
+        }
+        streamIn.close();
+
+        streamIn = new BufferedReader( new FileReader(nomeArquivoBanco));
+        String linha;
+        ArrayList<Banco> registros = new ArrayList<Banco>();
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(',');
+            int codBancoAtual = valores[0];
+            if(codBancoAtual == codBanco){
+                registros.add(
+                    new Banco(Integer.parseInt(valores[0]),
+                    valores[1],
+                    Float.parseFloat(valores[2]),
+                    Float.parseFloat(valores[3]),
+                    new BigDecimal(Float.parseFloat(valores[4])),
+                    new BigDecimal(Float.parseFloat(valores[5])),
+                    Integer.parseInt(valores[6])));
+            }
+        }
+        streamIn.close();
+        return registros.toArray();
     }
     
     public int descontar(ContaBancaria aDescontar, BigDecimal valorParaDescontar) throws Exception {

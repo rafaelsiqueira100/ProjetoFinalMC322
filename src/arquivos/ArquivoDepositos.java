@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 public class ArquivoDepositos extends Registro{
 
-    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/depositos.csv";
+    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/depositos.csv";
+    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/depositos.csv";
+
     public ArquivoDepositos() throws Exception {
         super();
     }

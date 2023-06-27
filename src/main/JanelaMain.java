@@ -6,6 +6,7 @@
 package main;
 
 import arquivos.DAOs;
+import entidades.Conta;
 import entidades.ContaBancaria;
 import java.math.BigDecimal;
 import java.util.Random;
@@ -108,7 +109,7 @@ public class JanelaMain extends javax.swing.JFrame {
         try {
             String senha = txtSenha.getText();
         
-            ContaBancaria contaAtual = DAOs.getTabelaContasBancarias().getContaBancaria(senha);
+            Conta contaAtual = DAOs.getTabelaContas().getConta(senha);
             //ContaBancaria contaAtual = new ContaBancaria(1,1,1, "abc", new BigDecimal(2.0),"1" );
             if (contaAtual == null) { //Essa conta não existe
                 JOptionPane.showMessageDialog(this, "A senha digitada não existe!");

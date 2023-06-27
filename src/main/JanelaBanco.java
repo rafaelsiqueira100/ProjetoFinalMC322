@@ -168,6 +168,7 @@ public class JanelaBanco extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Banco cadastrado com sucesso!");
             
             this.limparFormulario();
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

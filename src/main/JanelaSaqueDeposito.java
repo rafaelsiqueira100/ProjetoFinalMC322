@@ -6,6 +6,7 @@
 package main;
 
 import arquivos.DAOs;
+import entidades.Conta;
 import entidades.ContaBancaria;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
@@ -15,13 +16,13 @@ import javax.swing.JOptionPane;
  * @author ze
  */
 public class JanelaSaqueDeposito extends javax.swing.JFrame {
-    private ContaBancaria contaAtual;
+    private Conta contaAtual;
     private boolean       ehSaque;
     
     /**
      * Creates new form JanelaSaqueDeposito
      */
-    public JanelaSaqueDeposito(ContaBancaria contaAtual, boolean ehSaque) throws Exception {
+    public JanelaSaqueDeposito(Conta contaAtual, boolean ehSaque) throws Exception {
         if (contaAtual == null) {
             throw new Exception("JanelaSaqueDeposito: inicialização com ContaBancária nula");
         }
@@ -37,7 +38,7 @@ public class JanelaSaqueDeposito extends javax.swing.JFrame {
             this.setTitle("Realizar Depósito");
         }
         
-       lblBanco.setText(DAOs.getTabelaContasBancarias().getBanco(contaAtual).getNome());
+       lblBanco.setText(DAOs.getTabelaContas().getBanco(contaAtual).getNome());
        lblSaldo.setText(contaAtual.getSaldo().toString());
     }
 
@@ -152,12 +153,12 @@ public class JanelaSaqueDeposito extends javax.swing.JFrame {
         } else {
             try {
                 if (this.ehSaque) {
-                    DAOs.getTabelaContasBancarias().descontar(contaAtual, new BigDecimal(txtValor.getText()));
+                    DAOs.getTabelaContas().descontar(contaAtual, new BigDecimal(txtValor.getText()));
                     DAOs.getTabelaSaques()         .inserir  (contaAtual.getCodContaBancaria(), new BigDecimal(txtValor.getText()));
                 
                     JOptionPane.showMessageDialog(this, "Saque feito com sucesso!");
                 } else {
-                    DAOs.getTabelaContasBancarias().incrementar(contaAtual, new BigDecimal(txtValor.getText()));
+                    DAOs.getTabelaContas().incrementar(contaAtual, new BigDecimal(txtValor.getText()));
                     DAOs.getTabelaDepositos()      .inserir    (contaAtual.getCodContaBancaria(), new BigDecimal(txtValor.getText()));
                 
                     JOptionPane.showMessageDialog(this, "Depósito feito com sucesso!");

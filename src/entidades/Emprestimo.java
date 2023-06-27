@@ -13,7 +13,7 @@ public class Emprestimo {
 		this.codEmprestimo    = codEmprestimo;
 		this.codContaBancaria = codContaBancaria;
 		this.mesesParaPagar   = mesesParaPagar;
-		this.valorOriginal    = valorParaQuitar;
+		this.valorParaQuitar    = valorParaQuitar;
 		this.valorOriginal    = valorOriginal;
 	}
 	

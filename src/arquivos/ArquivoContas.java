@@ -3,6 +3,8 @@ package arquivos;
 import entidades.Banco;
 import entidades.ContaBancaria;
 import entidades.Cliente;
+import entidades.Conta;
+import entidades.ContaUniversitaria;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,21 +19,26 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ArquivoContasBancarias extends Registro{
-    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/contasbancarias.csv";
-    private static final String nomeArquivoBanco = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
-    public ArquivoContasBancarias() {    }
+public class ArquivoContas extends Registro{
+    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/contas.csv";
+    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/contas.csv";
+
+    //private static final String nomeArquivoBanco = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
+    private static final String nomeArquivoBanco = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/bancos.csv";
+
+    public ArquivoContas() {    }
     
+    @Override
     public int getProximoCodigo() throws Exception{
         ArrayList<Conta> contas = getContas();
         int codigoMaximo = 0;
-        for(ContaBancaria c: contas){
+        for(Conta c: contas){
             if(c.getCodContaBancaria() > codigoMaximo)
                 codigoMaximo = c.getCodContaBancaria();
         }
         return codigoMaximo + 1;
     }
-    public int inserir(int codCliente, int codBanco, String senha, int codAgencia) throws Exception {
+    public int inserir(int codCliente, int codBanco, String senha, int codAgencia, String ra) throws Exception {
         if (codCliente < 1) {
             throw new Exception("ContasBancarias: inclusão com código de cliente inválido");
         }
@@ -47,19 +54,32 @@ public class ArquivoContasBancarias extends Registro{
         if (codAgencia < 1) {
             throw new Exception("ContasBancarias: inclusão com código de agência inválido");
         }
-        
-        int proximoCodigoContaBancaria = getProximoCodigo();
         try{
             int proximoCodigo = getProximoCodigo();
             streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
-            streamOut.write(
-                Integer.toString(proximoCodigo) +","+
-                Integer.toString(codCliente) +","+
-                Integer.toString(codBanco)+","+
-                senha+","+
-                "0.0,"+
-                Integer.toString(codAgencia)
-            );
+            if(ra == null || ra.equals("")){
+                streamOut.write(
+                    Integer.toString(proximoCodigo) +","+
+                    Integer.toString(codCliente) +","+
+                    Integer.toString(codBanco)+","+
+                    senha+","+
+                    "0.0,"+
+                    Integer.toString(codAgencia)+","+
+                    "false, "
+                );
+            }
+            else{
+                streamOut.write(
+                    Integer.toString(proximoCodigo) +","+
+                    Integer.toString(codCliente) +","+
+                    Integer.toString(codBanco)+","+
+                    senha+","+
+                    "0.0,"+
+                    Integer.toString(codAgencia)+","+
+                    "true,"+
+                    ra
+                );
+            }
             streamOut.close();
         }
         catch(Exception e){
@@ -70,24 +90,38 @@ public class ArquivoContasBancarias extends Registro{
 
     public ArrayList<Conta> getContas() throws Exception { 
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
-        ArrayList<ContaBancaria> registros = new ArrayList<ContaBancaria>();
+        ArrayList<Conta> registros = new ArrayList<Conta>();
         String linha;
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
-            registros.add( new ContaBancaria(
-                    Integer.parseInt(valores[0]),
-                    Integer.parseInt(valores[1]),
-                    Integer.parseInt(valores[2]),
-                    valores[3],
-                    new BigDecimal(Float.parseFloat(valores[4])),
-                    valores[5]
-              ));
+            boolean ehContaUniversitaria = Boolean.parseBoolean(valores[6]);
+            if(!ehContaUniversitaria){
+                registros.add( new ContaBancaria(
+                        Integer.parseInt(valores[0]),
+                        Integer.parseInt(valores[1]),
+                        Integer.parseInt(valores[2]),
+                        valores[3],
+                        new BigDecimal(Float.parseFloat(valores[4])),
+                        valores[5]
+                  ));
+            }
+            else{
+                registros.add( new ContaUniversitaria(
+                        Integer.parseInt(valores[0]),
+                        Integer.parseInt(valores[1]),
+                        Integer.parseInt(valores[2]),
+                        valores[3],
+                        new BigDecimal(Float.parseFloat(valores[4])),
+                        valores[5],
+                        valores[7]
+                  ));
+            }
         }
         
         streamIn.close();
         return registros;
     }
-    public ContaBancaria getContaBancaria(String senha) throws Exception {
+    public Conta getConta(String senha) throws Exception {
         if (senha == null || senha.equals("")) {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
         }        
@@ -97,20 +131,34 @@ public class ArquivoContasBancarias extends Registro{
             String[] valores = linha.split(",");
             if(valores[3].equals(senha)){
                 streamIn.close();
-                return new ContaBancaria(
-                    Integer.parseInt(valores[0]),
-                    Integer.parseInt(valores[1]),
-                    Integer.parseInt(valores[2]),
-                    valores[3],
-                    new BigDecimal(Float.parseFloat(valores[4])),
-                    valores[5]
-              );
+                boolean ehContaUniversitaria = Boolean.parseBoolean(valores[6]);
+                if(!ehContaUniversitaria){
+                    return new ContaBancaria(
+                        Integer.parseInt(valores[0]),
+                        Integer.parseInt(valores[1]),
+                        Integer.parseInt(valores[2]),
+                        valores[3],
+                        new BigDecimal(Float.parseFloat(valores[4])),
+                        valores[5]
+                    );
+                }
+                else{
+                    return new ContaUniversitaria(
+                        Integer.parseInt(valores[0]),
+                        Integer.parseInt(valores[1]),
+                        Integer.parseInt(valores[2]),
+                        valores[3],
+                        new BigDecimal(Float.parseFloat(valores[4])),
+                        valores[5],
+                        valores[7]
+                    );
+                }
             }
         }
         return null;
     }
     
-    public ContaBancaria getContaBancaria(int codContaBancaria) throws Exception {
+    public Conta getConta(int codContaBancaria) throws Exception {
         if (codContaBancaria < 0) {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
         }        
@@ -120,20 +168,34 @@ public class ArquivoContasBancarias extends Registro{
             String[] valores = linha.split(",");
             if(Integer.parseInt(valores[0]) == codContaBancaria){
                 streamIn.close();
-                return new ContaBancaria(
-                    Integer.parseInt(valores[0]),
-                    Integer.parseInt(valores[1]),
-                    Integer.parseInt(valores[2]),
-                    valores[3],
-                    new BigDecimal(Float.parseFloat(valores[4])),
-                    valores[5]
-              );
+                boolean ehContaUniversitaria = Boolean.parseBoolean(valores[6]);
+                if(!ehContaUniversitaria){
+                    return new ContaBancaria(
+                        Integer.parseInt(valores[0]),
+                        Integer.parseInt(valores[1]),
+                        Integer.parseInt(valores[2]),
+                        valores[3],
+                        new BigDecimal(Float.parseFloat(valores[4])),
+                        valores[5]
+                    );
+                }
+                else{
+                    return new ContaUniversitaria(
+                        Integer.parseInt(valores[0]),
+                        Integer.parseInt(valores[1]),
+                        Integer.parseInt(valores[2]),
+                        valores[3],
+                        new BigDecimal(Float.parseFloat(valores[4])),
+                        valores[5],
+                        valores[7]
+                    );
+                }
             }
         }
         return null;
     }
     
-    public Banco getBanco(ContaBancaria conta) throws Exception {
+    public Banco getBanco(Conta conta) throws Exception {
         if (conta == null) {
             throw new Exception("ContasBancarias: consulta ao Banco de ContaBancária nula");
         }
@@ -169,7 +231,7 @@ public class ArquivoContasBancarias extends Registro{
         return null;
     }
     
-    public int descontar(ContaBancaria aDescontar, BigDecimal valorParaDescontar) throws Exception {
+    public int descontar(Conta aDescontar, BigDecimal valorParaDescontar) throws Exception {
         if (aDescontar == null) {
             throw new Exception("ContasBancarias: desconto em ContaBancária nula");
         }
@@ -183,19 +245,20 @@ public class ArquivoContasBancarias extends Registro{
             novoArquivo.createNewFile();
             streamOut = new BufferedWriter( new FileWriter("temp.csv"));
 
-            ContaBancaria contaAtual;
             String linha;
             while((linha = streamIn.readLine()) != null){
                 String[] valores = linha.split(",");
                 int codContaBancaria = Integer.parseInt(valores[0]);
                 if(codContaBancaria == aDescontar.getCodContaBancaria()){
-                    streamOut.write(
-                        valores[0] + "," 
-                        + valores[1] + "," 
-                        + valores[2] + ","
-                        +valores[3] + "," 
-                        + Float.toString((Float.parseFloat(valores[4])) - valorParaDescontar.floatValue())+ "," 
-                        + valores[5]);
+                        streamOut.write(
+                            valores[0] + "," 
+                            + valores[1] + "," 
+                            + valores[2] + ","
+                            +valores[3] + "," 
+                            + Float.toString((Float.parseFloat(valores[4])) - valorParaDescontar.floatValue())+ "," 
+                            + valores[5] + ","
+                            + valores[6] + ","
+                            + valores[7]);
                 }
                 else{
                     streamOut.write(
@@ -204,7 +267,9 @@ public class ArquivoContasBancarias extends Registro{
                         + valores[2] + ","
                         +valores[3] + "," 
                         + valores[4] + "," 
-                        + valores[5]);
+                        + valores[5] + ","
+                        + valores[6] + ","
+                        + valores[7]);
                 }
             }
             streamIn.close();
@@ -225,7 +290,7 @@ public class ArquivoContasBancarias extends Registro{
     }
     
     
-    public int incrementar(ContaBancaria aIncrementar, BigDecimal valorParaIncrementar) throws Exception {        
+    public int incrementar(Conta aIncrementar, BigDecimal valorParaIncrementar) throws Exception {        
         return descontar(aIncrementar, new BigDecimal(-valorParaIncrementar.floatValue()));
     }
 }

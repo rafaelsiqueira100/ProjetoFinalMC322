@@ -18,7 +18,9 @@ public class ArquivoBancos extends Registro{
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
+    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
+    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/bancos.csv";
+
     public ArquivoBancos() throws Exception {
     }
     public int getProximoCodigo(){

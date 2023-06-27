@@ -172,12 +172,8 @@ public class JanelaCadCli extends javax.swing.JFrame {
                 int codigoDoInserido = DAOs.getTabelaClientes().inserir(nomeCliente);
                 
                 if (codigoDoInserido > 0){ //A operação deu certo
-                    if(ra == null || ra.equals("")){
-                        DAOs.getTabelaContasBancarias().inserir(codigoDoInserido, bancoContaBancaria.getCodBanco(), senhaContaBancaria, codAgencia);
-                    }
-                    else{
-                        
-                    }
+                    DAOs.getTabelaContas().inserir(codigoDoInserido, bancoContaBancaria.getCodBanco(), senhaContaBancaria, codAgencia, ra);
+                   
                     JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
                     
                     this.dispose();

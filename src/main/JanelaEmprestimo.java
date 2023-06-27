@@ -7,7 +7,9 @@ package main;
 
 import arquivos.DAOs;
 import entidades.Banco;
+import entidades.Conta;
 import entidades.ContaBancaria;
+import entidades.ContaUniversitaria;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
@@ -16,12 +18,12 @@ import javax.swing.JOptionPane;
  * @author ze
  */
 public class JanelaEmprestimo extends javax.swing.JFrame {
-    ContaBancaria contaAtual;
+    Conta contaAtual;
     
     /**
      * Creates new form JanelaEmprestimo
      */
-    public JanelaEmprestimo(ContaBancaria contaAtual) throws Exception {
+    public JanelaEmprestimo(Conta contaAtual) throws Exception {
         if (contaAtual == null) {
             throw new Exception("JanelaEmprestimo: inicialização com ContaBancária nula");
         }
@@ -30,8 +32,20 @@ public class JanelaEmprestimo extends javax.swing.JFrame {
         
         this.contaAtual = contaAtual;
         
-        lblBanco.setText(DAOs.getTabelaContasBancarias().getBanco(contaAtual).getNome());
+        lblBanco.setText(DAOs.getTabelaContas().getBanco(contaAtual).getNome());
         lblSaldo.setText(contaAtual.getSaldo().toString());
+        Banco bancoAtual = DAOs.getTabelaContas().getBanco(contaAtual);
+        float mesesMaximosParaPagar;
+        if(contaAtual instanceof ContaUniversitaria){
+            mesesMaximosParaPagar = bancoAtual.getJurosEmprestimo();
+        }
+        else{
+            mesesMaximosParaPagar = (float) (0.7 * bancoAtual.getJurosEmprestimo());
+        }
+        cbxMesesParaPagar.removeAllItems();
+        for(int i=1; i< mesesMaximosParaPagar;i++){
+            cbxMesesParaPagar.insertItemAt(Integer.toString(i), i-1);
+        }
     }
 
     /**
@@ -113,18 +127,19 @@ public class JanelaEmprestimo extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblBanco)
-                                            .addComponent(lblSaldo)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(106, 106, 106)
+                                            .addComponent(lblSaldo))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(147, 147, 147)
                                         .addComponent(cbxMesesParaPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                                         .addComponent(jLabel7))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSenha)
                                     .addComponent(txtValor))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -163,20 +178,40 @@ public class JanelaEmprestimo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
+        try{
+        Banco bancoAtual = DAOs.getTabelaContas().getBanco(contaAtual);
+        BigDecimal valorMaximoEmprestimo;
+        if(contaAtual instanceof ContaUniversitaria){
+            valorMaximoEmprestimo = bancoAtual.getEmprestimoMaximo();
+        }
+        else{
+            valorMaximoEmprestimo = new BigDecimal(0.7*bancoAtual.getEmprestimoMaximo().floatValue());
+        }
+        float valor = Float.parseFloat(txtValor.getText());
+        if(valor > valorMaximoEmprestimo.floatValue()){
+            JOptionPane.showMessageDialog(this, "Valor solicitado maior que o máximo de seu banco, que é R$" +valorMaximoEmprestimo.toString());
+            return;
+        }
+        
         if (! txtSenha.getText().equals(contaAtual.getSenha())) {
             JOptionPane.showMessageDialog(this, "Senha inválida");
         } else {
-            try{
+            
             if (JOptionPane.showConfirmDialog(this, "Tem certeza que deseja solicitar este empréstimo?") == JOptionPane.OK_OPTION) {
-        
-                DAOs.getTabelaContasBancarias().incrementar(contaAtual, new BigDecimal(Float.parseFloat(txtValor.getText())));
+                int meses = Integer.parseInt(cbxMesesParaPagar.getSelectedItem().toString());
+                BigDecimal valorParaQuitar = new BigDecimal((float)Math.pow(valor *(1+bancoAtual.getJurosEmprestimo()/100.0),meses));
+                
+                
+                DAOs.getTabelaEmprestimos().inserir(contaAtual.getCodContaBancaria(),meses , valorParaQuitar, new BigDecimal(valor));
+                DAOs.getTabelaContas().incrementar(contaAtual, new BigDecimal(Float.parseFloat(txtValor.getText())));
                 this.dispose();
             }
-            }
-            catch(Exception e){
-                
-            }
-        }            
+        }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Erro ao solicitar empréstimo! Verifique os dados e tente novamente!");
+        }
+
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     /**

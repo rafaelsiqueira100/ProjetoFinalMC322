@@ -1,15 +1,14 @@
 package arquivos;
 import arquivos.ArquivoClientes;
 import arquivos.ArquivoBancos;
-import arquivos.ArquivoContasBancarias;
+import arquivos.ArquivoContas;
 import arquivos.ArquivoSaques;
 import arquivos.ArquivoDepositos;
 import arquivos.ArquivoEmprestimos;
 public class DAOs {
     private static ArquivoClientes        tabelaClientes;
     private static ArquivoBancos          tabelaBancos;
-    private static ArquivoContasBancarias tabelaContasBancarias;
-    private static ArquivoContasUniversitarias tabelaContasUniversitarias;
+    private static ArquivoContas          tabelaContas;
     private static ArquivoSaques          tabelaSaques;
     private static ArquivoDepositos       tabelaDepositos;
     private static ArquivoEmprestimos     tabelaEmprestimos;
@@ -18,8 +17,7 @@ public class DAOs {
         try {
             DAOs.tabelaClientes        = new ArquivoClientes();
             DAOs.tabelaBancos          = new ArquivoBancos();
-            DAOs.tabelaContasBancarias = new ArquivoContasBancarias();
-            DAOs.tabelaContasUniversitarias = new ArquivoContasUniversitarias();
+            DAOs.tabelaContas          = new ArquivoContas();
             DAOs.tabelaSaques          = new ArquivoSaques();
             DAOs.tabelaDepositos       = new ArquivoDepositos();
             DAOs.tabelaEmprestimos     = new ArquivoEmprestimos();
@@ -39,12 +37,8 @@ public class DAOs {
         return tabelaBancos;
     }
     
-    public static ArquivoContasBancarias getTabelaContasBancarias() {
-        return tabelaContasBancarias;
-    }
-    
-    public static ArquivoContasUniversitarias getTabelaContasUniversitarias() {
-        return tabelaContasUniversitarias;
+    public static ArquivoContas getTabelaContas() {
+        return tabelaContas;
     }
     
     public static ArquivoSaques getTabelaSaques() {

@@ -13,7 +13,9 @@ import entidades.Emprestimo;
 public class ArquivoEmprestimos extends Registro {
     public ArquivoEmprestimos() {
     }    
-    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
+    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
+    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
+
     public int getProximoCodigo() throws Exception{
             ArrayList<Emprestimo> emprestimos = getEmprestimos();
             int codigoMaximo = 0;
@@ -41,7 +43,7 @@ public class ArquivoEmprestimos extends Registro {
 		return registros;
 
     }
-    public int inserir(int codContaBancaria, int mesesParaPagar, BigDecimal valorOriginal) throws Exception {
+    public int inserir(int codContaBancaria, int mesesParaPagar, BigDecimal valorParaQuitar, BigDecimal valorOriginal) throws Exception {
         if (codContaBancaria < 1) {
             throw new Exception("Emprestimos: inserção com código de conta bancária inválido");
         }
@@ -60,7 +62,7 @@ public class ArquivoEmprestimos extends Registro {
                 Integer.toString(proximoCodigoEmprestimo) +","+
                 Integer.toString(codContaBancaria) +","+
                 Integer.toString(mesesParaPagar) +","+
-                valorOriginal.toString()+","+
+                valorParaQuitar.toString()+","+
                 valorOriginal.toString() +","
             );
             streamOut.close();

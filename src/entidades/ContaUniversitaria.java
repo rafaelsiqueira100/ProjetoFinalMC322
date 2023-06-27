@@ -11,7 +11,6 @@ import java.math.BigDecimal;
  * @author rafaelsiqueira
  */
 public class ContaUniversitaria extends Conta{
-    String universidade;
     String RA;
     /**
      * Construtor do objeto 
@@ -22,11 +21,10 @@ public class ContaUniversitaria extends Conta{
      * @param saldo saldo da conta banc�ria
      * @param codAgencia c�digo da ag�ncia da conta banc�ria
      * @param RA registro acadêmico
-     * @param universidade nome da universidade
 
      * @throws Exception caso algum par�metro seja inv�lido
      */
-    public ContaUniversitaria(int codContaBancaria, int codCliente, int codBanco, String senha, BigDecimal saldo, String codAgencia , String universidade, String RA) throws Exception {
+    public ContaUniversitaria(int codContaBancaria, int codCliente, int codBanco, String senha, BigDecimal saldo, String codAgencia , String RA) throws Exception {
         if (senha == null || senha.equals("")) {
             throw new Exception ("ContaBancaria: inicializa��o com senha inv�lida.");
         }
@@ -52,7 +50,6 @@ public class ContaUniversitaria extends Conta{
         this.senha =senha;
         this.codAgencia = codAgencia;
         this.RA = RA;
-        this.universidade= universidade;
     }
     /**
      * M�todo tradicional equals
@@ -72,7 +69,7 @@ public class ContaUniversitaria extends Conta{
             return true;
         }
         
-        ContaBancaria aComparar = (ContaBancaria) obj;
+        ContaUniversitaria aComparar = (ContaUniversitaria) obj;
         
         if (this.codContaBancaria != aComparar.getCodContaBancaria()) {
             return false;
@@ -94,7 +91,13 @@ public class ContaUniversitaria extends Conta{
         if(! this.codAgencia.equals(aComparar.getCodAgencia())){
         	return false;
         }
+        if(! this.RA.equals(aComparar.getRA())){
+            return false;
+        }
         return true;
+    }
+    public String getRA(){
+        return this.RA;
     }
     /**
      * M�todo tradicional hashCode
@@ -110,7 +113,6 @@ public class ContaUniversitaria extends Conta{
         hashCode = PRIMO * hashCode + this.saldo.hashCode();
         hashCode = PRIMO * hashCode + this.codAgencia.hashCode();
         hashCode = PRIMO * hashCode + this.RA.hashCode();
-        hashCode = PRIMO * hashCode + this.universidade.hashCode(); 
 
         return hashCode;
     }
@@ -119,7 +121,7 @@ public class ContaUniversitaria extends Conta{
      * @return o objeto na forma de String
      */
     public  String toString() {
-        return "ContaUniversitaria{" + "codContaBancaria=" + codContaBancaria + ", senha=" + senha + ", saldo=" + saldo +", codCliente=" +codCliente + ", codBanco=" + codBanco+", codAgencia=" + codAgencia+", RA="+RA+", universidade = "+universidade+'}';
+        return "ContaUniversitaria{" + "codContaBancaria=" + codContaBancaria + ", senha=" + senha + ", saldo=" + saldo +", codCliente=" +codCliente + ", codBanco=" + codBanco+", codAgencia=" + codAgencia+", RA="+RA+'}';
     }
     
 }

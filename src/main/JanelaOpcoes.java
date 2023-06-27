@@ -8,11 +8,7 @@ package main;
 import arquivos.DAOs;
 import entidades.ContaBancaria;
 import javax.swing.JOptionPane;
-//criar um radiobutton para escolher extrato
-/**
- *
- * @author ze
- */
+
 public class JanelaOpcoes extends javax.swing.JFrame {
     ContaBancaria contaAtual;
     int codContaAtual;
@@ -46,7 +42,6 @@ public class JanelaOpcoes extends javax.swing.JFrame {
         rbSacar = new javax.swing.JRadioButton();
         rbDepositar = new javax.swing.JRadioButton();
         rbEmprestimo = new javax.swing.JRadioButton();
-        rbCobranca = new javax.swing.JRadioButton();
         btnEscolher = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,9 +54,6 @@ public class JanelaOpcoes extends javax.swing.JFrame {
 
         buttonGroup1.add(rbEmprestimo);
         rbEmprestimo.setText("Fazer Empréstimo");
-
-        buttonGroup1.add(rbCobranca);
-        rbCobranca.setText("Pagar Cobrança");
 
         btnEscolher.setText("Confirmar");
         btnEscolher.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +72,6 @@ public class JanelaOpcoes extends javax.swing.JFrame {
                     .addComponent(rbSacar)
                     .addComponent(rbEmprestimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rbDepositar)
-                    .addComponent(rbCobranca)
                     .addComponent(btnEscolher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -93,8 +84,6 @@ public class JanelaOpcoes extends javax.swing.JFrame {
                 .addComponent(rbDepositar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbEmprestimo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbCobranca)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEscolher)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -112,8 +101,6 @@ public class JanelaOpcoes extends javax.swing.JFrame {
                 new JanelaSaqueDeposito(this.contaAtual, false).setVisible(true);
             else if (rbEmprestimo.isSelected())
                 new JanelaEmprestimo(this.contaAtual).setVisible(true);
-            else if(rbCobranca.isSelected())
-                new JanelaCobranca(this.contaAtual).setVisible(true);
            // else
             // new JanelaExtrato(this.contaAtual).setVisible(true)
         } catch (Exception e) {
@@ -165,7 +152,6 @@ public class JanelaOpcoes extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
-    private javax.swing.JRadioButton rbCobranca;
     private javax.swing.JRadioButton rbDepositar;
     private javax.swing.JRadioButton rbEmprestimo;
     private javax.swing.JRadioButton rbSacar;

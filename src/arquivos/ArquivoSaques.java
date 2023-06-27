@@ -1,7 +1,6 @@
 package arquivos;
 
 import entidades.Cliente;
-import entidades.Cobranca;
 import entidades.Saque;
 
 import java.io.BufferedReader;

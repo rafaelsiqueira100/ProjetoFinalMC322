@@ -5,8 +5,6 @@ import arquivos.ArquivoContasBancarias;
 import arquivos.ArquivoSaques;
 import arquivos.ArquivoDepositos;
 import arquivos.ArquivoEmprestimos;
-import arquivos.ArquivoCobrancas;
-import arquivos.ArquivoTipoCobrancas;
 public class DAOs {
     private static ArquivoClientes        tabelaClientes;
     private static ArquivoBancos          tabelaBancos;
@@ -14,8 +12,6 @@ public class DAOs {
     private static ArquivoSaques          tabelaSaques;
     private static ArquivoDepositos       tabelaDepositos;
     private static ArquivoEmprestimos     tabelaEmprestimos;
-    private static ArquivoCobrancas       tabelaCobrancas;
-    private static ArquivoTipoCobrancas   tabelaTipoCobrancas;
 
     static {
         try {
@@ -25,8 +21,6 @@ public class DAOs {
             DAOs.tabelaSaques          = new ArquivoSaques();
             DAOs.tabelaDepositos       = new ArquivoDepositos();
             DAOs.tabelaEmprestimos     = new ArquivoEmprestimos();
-            DAOs.tabelaCobrancas       = new ArquivoCobrancas();
-            DAOs.tabelaTipoCobrancas   = new ArquivoTipoCobrancas();
             //um como esse para cada classe DAO
         } catch (Exception erro) {
             System.err.println ("Problemas de conexao com o BD");
@@ -76,20 +70,6 @@ public class DAOs {
      */
     public static ArquivoEmprestimos getTabelaEmprestimos() {
         return tabelaEmprestimos;
-    }
-    /**
-     * Pega o dao de cobrancas
-     * @return o dao que d� acesso a tabela de cobranca
-     */
-    public static ArquivoCobrancas getTabelaCobrancas() {
-        return tabelaCobrancas;
-    }
-    /**
-     * Pega o dao de tipos de cobranças
-     * @return o dao que d� acesso a tabela de boleto
-     */
-    public static ArquivoTipoCobrancas getTabelaTipoCobrancas() {
-        return tabelaTipoCobrancas;
     }
 }
 

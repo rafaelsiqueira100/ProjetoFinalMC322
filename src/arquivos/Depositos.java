@@ -1,13 +1,16 @@
 package arquivos;
 
 import entidades.Deposito;
+import entidades.Cliente;
 import entidades.ContaBancaria;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Depositos {
 
@@ -56,45 +59,23 @@ public class Depositos {
 	        if (codContaBancaria < 1) {
 	            throw new Exception("Depositos: busca por depósitos com código de conta bancária inválido");
 	        }
-
-	        /*int quantosDepositos = -1;
-
-	        String sql = "SELECT COUNT(codDeposito) FROM Deposito WHERE codContaBancaria = ?;";
-
-	        this.bd.prepareStatement(sql);
-
-	        this.bd.setInt(1, codContaBancaria);
-
-	        ResultSet resultadoQuantosDepositos = this.bd.executeQuery();
-
-	        if (resultadoQuantosDepositos.next()) {
-	            quantosDepositos = resultadoQuantosDepositos.getInt(1);
-	        }
-
-	        return quantosDepositos;*/
-
+	        return this.getDepositos(codContaBancaria).length;
     }
 
 	public Deposito[] getDepositos() throws Exception {
-
-	        /*Deposito[] depositos = new Deposito[this.quantosDepositos(codContaBancaria)];
-
-	        String sql = "SELECT * FROM Deposito WHERE codContaBancaria = ?;";
-
-	        this.bd.prepareStatement(sql);
-
-	        this.bd.setInt(1, codContaBancaria);
-
-	        ResultSet resultadosDepositos = this.bd.executeQuery();
-
-	        int indiceDeInclusao = 0;
-	        while (resultadosDepositos.next()) {
-	            depositos[indiceDeInclusao] = new Deposito(resultadosDepositos.getInt(1), resultadosDepositos.getInt(2), resultadosDepositos.getBigDecimal(3));
-
-	            indiceDeInclusao++;
-	        }
-
-	        return depositos;*/
+		streamIn = new BufferedReader( new FileReader(nomeArquivo));
+		String linha;
+		ArrayList<Deposito> registros = new ArrayList<Deposito>();
+		while((linha = streamIn.readLine()) != null){
+			String[] valores = linha.split(",");
+			registros.add(
+				new Deposito(Integer.parseInt(valores[0]),
+				Integer.parseInt(valores[1]),
+				new BigDecimal(Float.parseFloat(valores[2]))
+			));
+		}
+		streamIn.close();
+		return (Deposito[])registros.toArray();
 
     }
 
@@ -102,24 +83,21 @@ public class Depositos {
 	        if (codContaBancaria < 1) {
 	            throw new Exception("Depositos: busca por depósitos com código de conta bancária inválido");
 	        }
-
-	        Deposito[] depositos = new Deposito[this.quantosDepositos(codContaBancaria)];
-
-	        String sql = "SELECT * FROM Deposito WHERE codContaBancaria = ?;";
-
-	        this.bd.prepareStatement(sql);
-
-	        this.bd.setInt(1, codContaBancaria);
-
-	        ResultSet resultadosDepositos = this.bd.executeQuery();
-
-	        int indiceDeInclusao = 0;
-	        while (resultadosDepositos.next()) {
-	            depositos[indiceDeInclusao] = new Deposito(resultadosDepositos.getInt(1), resultadosDepositos.getInt(2), resultadosDepositos.getBigDecimal(3));
-
-	            indiceDeInclusao++;
-	        }
-
-	        return depositos;
+			streamIn = new BufferedReader( new FileReader(nomeArquivo));
+			String linha;
+			ArrayList<Deposito> registros = new ArrayList<Deposito>();
+			while((linha = streamIn.readLine()) != null){
+				String[] valores = linha.split(",");
+				int codContaBancariaAtual = valores[1];
+				if(codContaBancaria == codContaBancariaAtual){
+					registros.add(
+						new Deposito(Integer.parseInt(valores[0]),
+						Integer.parseInt(valores[1]),
+						new BigDecimal(Float.parseFloat(valores[2]))
+					));
+				}
+			}
+			streamIn.close();
+			return (Deposito[])registros.toArray();
     }
 }

@@ -5,37 +5,39 @@
  */
 package arquivos;
 
-import DBOs.TipoCobranca;
-import java.sql.ResultSet;
+import entidades.TipoCobranca;
+import entidades.Cobranca;
 
-/**
- *
- * @author u16189
- */
-public class TipoCobrancas extends Dao {
-    public TipoCobrancas() throws Exception {
-        super();
-    }
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+
+public class TipoCobrancas  {
+    public TipoCobrancas() {  }
+    private BufferedReader streamIn;
+    private BufferedWriter streamOut;
+    private static final String nomeArquivo = "tipocobrancas.csv";
     
     public TipoCobranca getTipoCobranca(int codTipoCobranca) throws Exception {
         if (codTipoCobranca < 1) {
             throw new Exception("TipoCobrancas: busca por tipo de cobrança com  código inválido");
         }
-        
-        TipoCobranca aRetornar = null;
-        
-        String sql = "SELECT * FROM TipoCobranca WHERE codTipoCobranca = ?;";
-        
-        this.bd.prepareStatement(sql);
-        
-        this.bd.setInt(1, codTipoCobranca);
-        
-        ResultSet resultadoTipoCobranca = this.bd.executeQuery();
-        
-        if (resultadoTipoCobranca.next()) {
-            aRetornar = new TipoCobranca(resultadoTipoCobranca.getInt(1), resultadoTipoCobranca.getString(2));
+        TipoCobranca registro;
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        String linha;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(",");
+            int codTipoCobrancaAtual = Integer.parseInt(valores[0]);
+            if(codTipoCobranca == codTipoCobrancaAtual){
+                streamIn.close();
+                return new TipoCobranca(Integer.parseInt(valores[0]), valores[1]);
+            }
         }
-        
-        return aRetornar;
+        streamIn.close();
+		return null;
     }
 }

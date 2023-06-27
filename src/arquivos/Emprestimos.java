@@ -1,6 +1,14 @@
 package arquivos;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+
+import entidades.Deposito;
+import entidades.Emprestimo;
 
 public class Emprestimos  extends Dao {
     public Emprestimos() throws Exception {
@@ -11,7 +19,37 @@ public class Emprestimos  extends Dao {
 	private int mesesParaPagar;
 	private BigDecimal valorParaQuitar;
 	private BigDecimal valorOriginal;
+    
+	private BufferedReader streamIn;
+    private BufferedWriter streamOut;
+    private static final String nomeArquivo = "emprestimos.csv";
+    public int getProximoCodigo() throws Exception{
+            Emprestimo[] emprestimos = getEmprestimos();
+            int codigoMaximo = -1;
+            for(Emprestimo e: emprestimos){
+                if(e.getCodEmprestimo() > codigoMaximo)
+                    codigoMaximo = e.getCodEmprestimo();
+            }
+            return codigoMaximo + 1;
+    }
+    public Emprestimo[] getEmprestimos() throws Exception {
+		streamIn = new BufferedReader( new FileReader(nomeArquivo));
+		String linha;
+		ArrayList<Emprestimo> registros = new ArrayList<Emprestimo>();
+		while((linha = streamIn.readLine()) != null){
+			String[] valores = linha.split(",");
+			registros.add(
+				new Emprestimo(Integer.parseInt(valores[0]),
+				Integer.parseInt(valores[1]),
+                Integer.parseInt(valores[2]),
+				new BigDecimal(Float.parseFloat(valores[3])),
+                new BigDecimal(Float.parseFloat(valores[4]))
+			));
+		}
+		streamIn.close();
+		return (Emprestimo[])registros.toArray();
 
+    }
     public int inserir(int codContaBancaria, int mesesParaPagar, BigDecimal valorOriginal) throws Exception {
         if (codContaBancaria < 1) {
             throw new Exception("Emprestimos: inserção com código de conta bancária inválido");
@@ -24,23 +62,21 @@ public class Emprestimos  extends Dao {
         if (valorOriginal == null || valorOriginal.equals(BigDecimal.ZERO)) {
             throw new Exception("Emprestimos: inserção com valor original inválido");
         }
-        
-        int proximoCodigoEmprestimo = getProximoCodigo("Emprestimo", "codEmprestimo");
-        String sql = "INSERT INTO Emprestimo VALUES (?, ?, ?, ?, ?, ?);";
-        
-        this.bd.prepareStatement(sql);
-
-        this.bd.setInt       (1, proximoCodigoEmprestimo);
-        this.bd.setInt       (2, codContaBancaria);
-        this.bd.setInt       (3, codContaBancaria); //Inicialmente, a conta que pagará o empréstimo é a mesma conta na qual ele será depositado
-        this.bd.setInt       (4, mesesParaPagar);
-        //this.bd.setBigDecimal(5, valorOriginal);  Calcular o valor para quitar
-        this.bd.setBigDecimal(6, valorOriginal);
-        
-        int resultado = this.bd.executeUpdate();
-        
-        this.bd.commit();
-        
-        return resultado;
+        try{
+            int proximoCodigoEmprestimo = getProximoCodigo();
+            streamOut = new BufferedWriter(new FileWriter(nomeArquivo));
+            streamOut.write(
+                Integer.toString(proximoCodigoEmprestimo) +","+
+                Integer.toString(codContaBancaria) +","+
+                Integer.toString(mesesParaPagar) +","+
+                valorOriginal.toString()+","+
+                valorOriginal.toString() +","
+            );
+            streamOut.close();
+        }
+        catch(Exception e){
+            return -1;
+        }
+        return 1;
     }
 }

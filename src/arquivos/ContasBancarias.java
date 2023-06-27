@@ -1,7 +1,7 @@
 package arquivos;
 
-import DBOs.Banco;
-import DBOs.ContaBancaria;
+import entidades.Banco;
+import entidades.ContaBancaria;
 import entidades.Cliente;
 
 import java.io.BufferedReader;
@@ -19,7 +19,7 @@ public class ContasBancarias {
     public ContasBancarias() {    }
     
     public int getProximoCodigo() throws Exception{
-        ContaBancaria[] contasBancarias = getContaBancaria();
+        ContaBancaria[] contasBancarias = getContasBancaria();
         int codigoMaximo = -1;
         for(ContaBancaria c: contasBancarias){
             if(c.getCodContaBancaria() > codigoMaximo)
@@ -63,6 +63,8 @@ public class ContasBancarias {
         }
         return 1;
     }
+
+
     
     public ContaBancaria getContaBancaria(String senha) throws Exception {
         if (senha == null || senha.equals("")) {
@@ -133,7 +135,7 @@ public class ContasBancarias {
             throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
         }
         
-        String sql = "UPDATE ContaBancaria SET saldo = saldo - ? WHERE codContaBancaria = ?;";
+        /*String sql = "UPDATE ContaBancaria SET saldo = saldo - ? WHERE codContaBancaria = ?;";
         
         this.bd.prepareStatement(sql);
         
@@ -144,7 +146,10 @@ public class ContasBancarias {
         
         this.bd.commit();
         
-        return resultado;
+        return resultado; */
+
+        codContaBancariaAtual
+
     }
     
     public int incrementar(ContaBancaria aIncrementar, BigDecimal valorParaIncrementar) throws Exception {

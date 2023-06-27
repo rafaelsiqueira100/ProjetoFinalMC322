@@ -1,11 +1,18 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidades;
+
 import java.math.BigDecimal;
+
 /**
-*
-* @author Rafael Andre Siqueira
-*  Classe DBO que representa a entidade de Conta Banc�ria
-*/
-public class ContaBancaria extends Conta{
+ *
+ * @author rafaelsiqueira
+ */
+public class ContaUniversitaria extends Conta{
+    String universidade;
+    String RA;
     /**
      * Construtor do objeto 
      * @param codContaBancaria c�digo da conta banc�ria
@@ -14,10 +21,12 @@ public class ContaBancaria extends Conta{
      * @param senha senha da conta banc�ria
      * @param saldo saldo da conta banc�ria
      * @param codAgencia c�digo da ag�ncia da conta banc�ria
+     * @param RA registro acadêmico
+     * @param universidade nome da universidade
 
      * @throws Exception caso algum par�metro seja inv�lido
      */
-    public ContaBancaria(int codContaBancaria, int codCliente, int codBanco, String senha, BigDecimal saldo, String codAgencia ) throws Exception {
+    public ContaUniversitaria(int codContaBancaria, int codCliente, int codBanco, String senha, BigDecimal saldo, String codAgencia , String universidade, String RA) throws Exception {
         if (senha == null || senha.equals("")) {
             throw new Exception ("ContaBancaria: inicializa��o com senha inv�lida.");
         }
@@ -42,6 +51,8 @@ public class ContaBancaria extends Conta{
         this.saldo = saldo;
         this.senha =senha;
         this.codAgencia = codAgencia;
+        this.RA = RA;
+        this.universidade= universidade;
     }
     /**
      * M�todo tradicional equals
@@ -98,6 +109,8 @@ public class ContaBancaria extends Conta{
         hashCode = PRIMO * hashCode + this.senha.hashCode();
         hashCode = PRIMO * hashCode + this.saldo.hashCode();
         hashCode = PRIMO * hashCode + this.codAgencia.hashCode();
+        hashCode = PRIMO * hashCode + this.RA.hashCode();
+        hashCode = PRIMO * hashCode + this.universidade.hashCode(); 
 
         return hashCode;
     }
@@ -106,15 +119,7 @@ public class ContaBancaria extends Conta{
      * @return o objeto na forma de String
      */
     public  String toString() {
-        return "ContaBancaria{" + "codContaBancaria=" + codContaBancaria + ", senha=" + senha + ", saldo=" + saldo +", codCliente=" +codCliente + ", codBanco=" + codBanco+", codAgencia=" + codAgencia+'}';
+        return "ContaUniversitaria{" + "codContaBancaria=" + codContaBancaria + ", senha=" + senha + ", saldo=" + saldo +", codCliente=" +codCliente + ", codBanco=" + codBanco+", codAgencia=" + codAgencia+", RA="+RA+", universidade = "+universidade+'}';
     }
-
-      /*
- N�o tem construtor de c�pia, pois n�o tem setters
- 
-    public ContaBancaria(ContaBancaria aCopiar) throws Exception */
-    /*
-	N�o tem clone, pois n�o tem setters
-    public Object clone() */
     
 }

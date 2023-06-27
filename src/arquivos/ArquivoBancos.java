@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Bancos extends Registro{
+public class ArquivoBancos extends Registro{
 	 /**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
@@ -21,7 +21,7 @@ public class Bancos extends Registro{
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
-    public Bancos() throws Exception {
+    public ArquivoBancos() throws Exception {
     }
     public int getProximoCodigo(){
         return -1;

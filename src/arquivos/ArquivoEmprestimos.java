@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import entidades.Deposito;
 import entidades.Emprestimo;
 
-public class Emprestimos extends Registro {
-    public Emprestimos() {
+public class ArquivoEmprestimos extends Registro {
+    public ArquivoEmprestimos() {
     }
     
     private int codContaBancaria;

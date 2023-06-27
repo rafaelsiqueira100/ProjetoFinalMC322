@@ -12,13 +12,13 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Saques extends Registro{
+public class ArquivoSaques extends Registro{
 
 	/**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    public Saques() {    }
+    public ArquivoSaques() {    }
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/saques.csv";

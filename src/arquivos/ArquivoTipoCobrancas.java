@@ -16,8 +16,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
-public class TipoCobrancas extends Registro {
-    public TipoCobrancas() {  }
+public class ArquivoTipoCobrancas extends Registro {
+    public ArquivoTipoCobrancas() {  }
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/tipocobrancas.csv";

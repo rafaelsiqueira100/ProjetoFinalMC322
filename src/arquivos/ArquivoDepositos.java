@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Depositos extends Registro{
+public class ArquivoDepositos extends Registro{
 
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/depositos.csv";
-    public Depositos() throws Exception {
+    public ArquivoDepositos() throws Exception {
         super();
     }
 	public int getProximoCodigo() throws Exception{

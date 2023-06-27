@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Clientes extends Registro{
+public class ArquivoClientes extends Registro{
 	/**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
@@ -19,7 +19,7 @@ public class Clientes extends Registro{
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/clientes.csv";
-    public Clientes() throws Exception {
+    public ArquivoClientes() throws Exception {
         super();
     }
     private ArrayList<Cliente> getClientes() throws Exception {

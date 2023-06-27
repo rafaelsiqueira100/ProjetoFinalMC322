@@ -17,12 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ContasBancarias extends Registro{
+public class ArquivoContasBancarias extends Registro{
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/contasbancarias.csv";
     private static final String nomeArquivoBanco = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
-    public ContasBancarias() {    }
+    public ArquivoContasBancarias() {    }
     
     public int getProximoCodigo() throws Exception{
         ArrayList<ContaBancaria> contasBancarias = getContasBancarias();

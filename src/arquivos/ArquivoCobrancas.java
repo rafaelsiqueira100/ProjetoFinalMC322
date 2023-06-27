@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cobrancas extends Registro{
+public class ArquivoCobrancas extends Registro{
 	/**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
@@ -25,7 +25,7 @@ public class Cobrancas extends Registro{
     public int getProximoCodigo(){
         return -1;
     }
-    public Cobrancas() {    }
+    public ArquivoCobrancas() {    }
 
     public int quantasCobrancas(int codContaBancaria) throws Exception {
         if (codContaBancaria < 1) {

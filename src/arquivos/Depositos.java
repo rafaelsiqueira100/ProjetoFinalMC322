@@ -12,11 +12,11 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Depositos {
+public class Depositos extends Registro{
 
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\depositos.csv";
+    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/depositos.csv";
     public Depositos() throws Exception {
         super();
     }

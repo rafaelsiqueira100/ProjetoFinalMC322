@@ -17,11 +17,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ContasBancarias {
+public class ContasBancarias extends Registro{
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\contasbancarias.csv";
-    private static final String nomeArquivoBanco = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
+    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/contasbancarias.csv";
+    private static final String nomeArquivoBanco = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
     public ContasBancarias() {    }
     
     public int getProximoCodigo() throws Exception{
@@ -89,7 +89,6 @@ public class ContasBancarias {
         streamIn.close();
         return registros;
     }
-    
     public ContaBancaria getContaBancaria(String senha) throws Exception {
         if (senha == null || senha.equals("")) {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
@@ -99,6 +98,29 @@ public class ContasBancarias {
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
             if(valores[3].equals(senha)){
+                streamIn.close();
+                return new ContaBancaria(
+                    Integer.parseInt(valores[0]),
+                    Integer.parseInt(valores[1]),
+                    Integer.parseInt(valores[2]),
+                    valores[3],
+                    new BigDecimal(Float.parseFloat(valores[4])),
+                    valores[5]
+              );
+            }
+        }
+        return null;
+    }
+    
+    public ContaBancaria getContaBancaria(int codContaBancaria) throws Exception {
+        if (codContaBancaria < 0) {
+            throw new Exception("ContasBancarias: busca por conta com senha inválida");
+        }        
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        String linha;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(",");
+            if(Integer.parseInt(valores[0]) == codContaBancaria){
                 streamIn.close();
                 return new ContaBancaria(
                     Integer.parseInt(valores[0]),
@@ -154,12 +176,14 @@ public class ContasBancarias {
             throw new Exception("ContasBancarias: desconto em ContaBancária nula");
         }
         
-        if (valorParaDescontar == null || valorParaDescontar.compareTo(BigDecimal.ZERO) <= 0) {
+        if (valorParaDescontar == null) {
             throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
         }
         try{
-            streamIn = new BufferedReader( new FileReader(nomeArquivoBanco));
-            streamOut = new BufferedWriter( new FileWriter("tmp_"+nomeArquivo));
+            streamIn = new BufferedReader( new FileReader(nomeArquivo));
+            File novoArquivo = new File("temp.csv");
+            novoArquivo.createNewFile();
+            streamOut = new BufferedWriter( new FileWriter("temp.csv"));
 
             ContaBancaria contaAtual;
             String linha;
@@ -187,7 +211,7 @@ public class ContasBancarias {
             }
             streamIn.close();
             streamOut.close();
-            File novo = new File("tmp_"+nomeArquivo);
+            File novo = new File("temp.csv");
             File antigo = new File(nomeArquivo);
             novo.renameTo(antigo);
         }

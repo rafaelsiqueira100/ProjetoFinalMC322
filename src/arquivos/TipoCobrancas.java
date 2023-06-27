@@ -16,12 +16,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
-public class TipoCobrancas  {
+public class TipoCobrancas extends Registro {
     public TipoCobrancas() {  }
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\tipocobrancas.csv";
+    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/tipocobrancas.csv";
     
+    public int getProximoCodigo(){
+        return -1;
+    }
     public TipoCobranca getTipoCobranca(int codTipoCobranca) throws Exception {
         if (codTipoCobranca < 1) {
             throw new Exception("TipoCobrancas: busca por tipo de cobrança com  código inválido");

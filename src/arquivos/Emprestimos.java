@@ -10,9 +10,8 @@ import java.util.ArrayList;
 import entidades.Deposito;
 import entidades.Emprestimo;
 
-public class Emprestimos  {
-    public Emprestimos() throws Exception {
-        super();
+public class Emprestimos extends Registro {
+    public Emprestimos() {
     }
     
     private int codContaBancaria;
@@ -22,7 +21,7 @@ public class Emprestimos  {
     
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\emprestimos.csv";
+    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
     public int getProximoCodigo() throws Exception{
             ArrayList<Emprestimo> emprestimos = getEmprestimos();
             int codigoMaximo = 0;

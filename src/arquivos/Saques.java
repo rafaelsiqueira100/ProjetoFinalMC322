@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Saques {
+public class Saques extends Registro{
 
 	/**
      * Construtor de objeto DAO
@@ -21,7 +21,7 @@ public class Saques {
     public Saques() {    }
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\saques.csv";
+    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/saques.csv";
 	public int getProximoCodigo() throws Exception{
         ArrayList<Saque> saques = getSaques();
         int codigoMaximo = 0;

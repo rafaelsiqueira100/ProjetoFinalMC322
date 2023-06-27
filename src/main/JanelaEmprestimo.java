@@ -8,6 +8,7 @@ package main;
 import arquivos.DAOs;
 import entidades.Banco;
 import entidades.ContaBancaria;
+import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
 /**
@@ -165,8 +166,15 @@ public class JanelaEmprestimo extends javax.swing.JFrame {
         if (! txtSenha.getText().equals(contaAtual.getSenha())) {
             JOptionPane.showMessageDialog(this, "Senha inválida");
         } else {
+            try{
             if (JOptionPane.showConfirmDialog(this, "Tem certeza que deseja solicitar este empréstimo?") == JOptionPane.OK_OPTION) {
+        
+                DAOs.getTabelaContasBancarias().incrementar(contaAtual, new BigDecimal(Float.parseFloat(txtValor.getText())));
                 this.dispose();
+            }
+            }
+            catch(Exception e){
+                
             }
         }            
     }//GEN-LAST:event_btnSolicitarActionPerformed

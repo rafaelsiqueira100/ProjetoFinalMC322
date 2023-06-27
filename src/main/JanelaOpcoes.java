@@ -5,6 +5,7 @@
  */
 package main;
 
+import arquivos.DAOs;
 import entidades.ContaBancaria;
 import javax.swing.JOptionPane;
 //criar um radiobutton para escolher extrato
@@ -14,18 +15,18 @@ import javax.swing.JOptionPane;
  */
 public class JanelaOpcoes extends javax.swing.JFrame {
     ContaBancaria contaAtual;
-
+    int codContaAtual;
     /**
      * Creates new form JanelaOpcoes
      */
-    public JanelaOpcoes(ContaBancaria contaAtual) throws Exception {
-        if (contaAtual == null) {
+    public JanelaOpcoes(int codContaAtual) throws Exception {
+        if (codContaAtual < 0) {
             throw new Exception("JanelaOpcoes: inicialização com ContaBancária nula");
         }
 
         initComponents();
 
-        this.contaAtual = contaAtual;
+        this.codContaAtual = codContaAtual;
     }
 
     /**
@@ -104,6 +105,7 @@ public class JanelaOpcoes extends javax.swing.JFrame {
 
     private void btnEscolherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherActionPerformed
         try {
+            contaAtual = DAOs.getTabelaContasBancarias().getContaBancaria(codContaAtual);
             if (rbSacar.isSelected())
                 new JanelaSaqueDeposito(this.contaAtual, true).setVisible(true);
             else if (rbDepositar.isSelected())

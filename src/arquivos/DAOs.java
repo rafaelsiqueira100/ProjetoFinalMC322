@@ -6,7 +6,6 @@ import arquivos.Saques;
 import arquivos.Depositos;
 import arquivos.Emprestimos;
 import arquivos.Cobrancas;
-import arquivos.Boletos;
 import arquivos.TipoCobrancas;
 public class DAOs {
     private static Clientes        tabelaClientes;
@@ -16,7 +15,6 @@ public class DAOs {
     private static Depositos       tabelaDepositos;
     private static Emprestimos     tabelaEmprestimos;
     private static Cobrancas       tabelaCobrancas;
-    private static Boletos         tabelaBoletos;
     private static TipoCobrancas   tabelaTipoCobrancas;
 
     static {
@@ -28,7 +26,6 @@ public class DAOs {
             DAOs.tabelaDepositos       = new Depositos();
             DAOs.tabelaEmprestimos     = new Emprestimos();
             DAOs.tabelaCobrancas       = new Cobrancas();
-            DAOs.tabelaBoletos         = new Boletos();
             DAOs.tabelaTipoCobrancas   = new TipoCobrancas();
             //um como esse para cada classe DAO
         } catch (Exception erro) {
@@ -87,13 +84,6 @@ public class DAOs {
     public static Cobrancas getTabelaCobrancas() {
         return tabelaCobrancas;
     }
-    /**
-     * Pega o dao de boletos
-     * @return o dao que d� acesso a tabela de boleto
-     */
-    public static Boletos getTabelaBoletos() {
-        return tabelaBoletos;
-    }    
     /**
      * Pega o dao de tipos de cobranças
      * @return o dao que d� acesso a tabela de boleto

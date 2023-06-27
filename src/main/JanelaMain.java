@@ -117,7 +117,7 @@ public class JanelaMain extends javax.swing.JFrame {
 
                 //Uma verificação deverá ser feita em cima de "qualNumero"
                 
-                new JanelaOpcoes(contaAtual).setVisible(true);
+                new JanelaOpcoes(contaAtual.getCodContaBancaria()).setVisible(true);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

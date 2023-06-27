@@ -72,15 +72,6 @@ if(valor == null || valor.compareTo(zero)<=0){
 
            int hashCode = INICIAL;
 
-           Integer envoltorioCodSaque   = new Integer (this.codSaque);
-           Integer envoltorioCodContaBancaria    = new Integer (this.codContaBancaria );
-       
-
-
-          hashCode = PRIMO * hashCode + envoltorioCodSaque.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodContaBancaria.hashCode();
-
   
        
           hashCode = PRIMO * hashCode + this.valor.hashCode();

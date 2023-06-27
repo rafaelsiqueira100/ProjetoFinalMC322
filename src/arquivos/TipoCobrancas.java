@@ -20,7 +20,7 @@ public class TipoCobrancas  {
     public TipoCobrancas() {  }
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "tipocobrancas.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\tipocobrancas.csv";
     
     public TipoCobranca getTipoCobranca(int codTipoCobranca) throws Exception {
         if (codTipoCobranca < 1) {

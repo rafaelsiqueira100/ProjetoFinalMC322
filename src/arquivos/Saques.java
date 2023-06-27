@@ -7,6 +7,7 @@ import entidades.Saque;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,17 +21,17 @@ public class Saques {
     public Saques() {    }
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "saques.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\saques.csv";
 	public int getProximoCodigo() throws Exception{
-        Saque[] saques = getSaques();
-        int codigoMaximo = -1;
+        ArrayList<Saque> saques = getSaques();
+        int codigoMaximo = 0;
         for(Saque s: saques){
             if(s.getCodSaque() > codigoMaximo)
                 codigoMaximo = s.getCodSaque();
         }
         return codigoMaximo+1;
     }
-	public Saque[] getSaques() throws Exception{
+	public ArrayList<Saque> getSaques() throws Exception{
 		ArrayList<Saque> registros = new ArrayList<Saque>();
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
@@ -43,7 +44,7 @@ public class Saques {
                 ));
         }
         streamIn.close();
-		return (Saque[]) registros.toArray();
+		return registros;
 	}
 
     public int inserir(int codContaBancaria, BigDecimal valor) throws Exception {
@@ -56,7 +57,7 @@ public class Saques {
         }
 		try{
             int proximoCodigoSaque = getProximoCodigo();
-            streamOut = new BufferedWriter( nomeArquivo);
+            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
             streamOut.write(
                 Integer.toString(proximoCodigoSaque) +","+
                 Integer.toString(codContaBancaria) +","+
@@ -74,10 +75,10 @@ public class Saques {
 		        if (codContaBancaria < 1) {
 		            throw new Exception("Saques: busca por depósitos com código de conta bancária inválido");
 		        }
-		        return getSaques().length;
+		        return getSaques().size();
 	    }
 
-	    public Saque[] getSaques(int codContaBancaria) throws Exception {
+	    public ArrayList<Saque> getSaques(int codContaBancaria) throws Exception {
 		        if (codContaBancaria < 1) {
 		            throw new Exception("Saques: busca por depósitos com código de conta bancária inválido");
 		        }
@@ -87,7 +88,7 @@ public class Saques {
 				String linha;
 				while((linha = streamIn.readLine()) != null){
 					String[] valores = linha.split(",");
-					int codContaBancariaAtual = valores[1];
+					int codContaBancariaAtual = Integer.parseInt(valores[1]);
 					if(codContaBancaria == codContaBancariaAtual){
 						registros.add(
 							new Saque(Integer.parseInt(valores[0]),
@@ -97,6 +98,6 @@ public class Saques {
 					}
 				}
 				streamIn.close();
-				return (Saque[]) registros.toArray();
+				return registros;
     }
 }

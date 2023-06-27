@@ -5,9 +5,10 @@
  */
 package main;
 
-import DAOs.DAOs;
-import DBOs.Cobranca;
-import DBOs.ContaBancaria;
+import arquivos.DAOs;
+import entidades.Cobranca;
+import entidades.ContaBancaria;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class JanelaCobranca extends javax.swing.JFrame {
     ContaBancaria contaAtual;
-    Cobranca[]    cobrancas;
+    ArrayList<Cobranca>   cobrancas;
     
     /**
      * Creates new form JanelaCobranca
@@ -28,18 +29,18 @@ public class JanelaCobranca extends javax.swing.JFrame {
         
         initComponents();
         
-        //this.lblSaldo.setText(contaAtual.getSaldo().toString());
+        this.lblSaldo.setText(contaAtual.getSaldo().toString());
         
-        //this.cobrancas = DAOs.getTabelaCobrancas().getCobrancas(contaAtual.getCodContaBancaria());
+        this.cobrancas = DAOs.getTabelaCobrancas().getCobrancas(contaAtual.getCodContaBancaria());
         
-        //Cobranca atual = null;
-        //for (int i = 0; i < cobrancas.length; i++) {
-        //    atual = this.cobrancas[i];
+        Cobranca atual = null;
+        for (int i = 0; i < cobrancas.size(); i++) {
+            atual = this.cobrancas.get(i);
             
-        //    String tipoDeCobranca = DAOs.getTabelaTipoCobrancas().getTipoCobranca(atual.getCodTipoCobranca()).getNome();
+            String tipoDeCobranca = DAOs.getTabelaTipoCobrancas().getTipoCobranca(atual.getCodTipoCobranca()).getNome();
             
-        //    cbxCobranca.addItem(tipoDeCobranca + atual.getDataDeVencimento().toString() + " R$" + atual.getValor().toString());
-        //}
+            cbxCobranca.addItem(tipoDeCobranca + atual.getDataDeVencimento().toString() + " R$" + atual.getValor().toString());
+        }
     }
 
     /**

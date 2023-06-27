@@ -16,13 +16,13 @@ public class Depositos {
 
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "depositos.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\depositos.csv";
     public Depositos() throws Exception {
         super();
     }
 	public int getProximoCodigo() throws Exception{
-        Deposito[] depositos = getDepositos();
-        int codigoMaximo = -1;
+        ArrayList<Deposito> depositos = getDepositos();
+        int codigoMaximo = 0;
         for(Deposito d: depositos){
             if(d.getCodDeposito() > codigoMaximo)
                 codigoMaximo = d.getCodContaBancaria();
@@ -59,10 +59,10 @@ public class Depositos {
 	        if (codContaBancaria < 1) {
 	            throw new Exception("Depositos: busca por depósitos com código de conta bancária inválido");
 	        }
-	        return this.getDepositos(codContaBancaria).length;
+	        return this.getDepositos(codContaBancaria).size();
     }
 
-	public Deposito[] getDepositos() throws Exception {
+	public ArrayList<Deposito> getDepositos() throws Exception {
 		streamIn = new BufferedReader( new FileReader(nomeArquivo));
 		String linha;
 		ArrayList<Deposito> registros = new ArrayList<Deposito>();
@@ -75,11 +75,11 @@ public class Depositos {
 			));
 		}
 		streamIn.close();
-		return (Deposito[])registros.toArray();
+		return registros;
 
     }
 
-    public Deposito[] getDepositos(int codContaBancaria) throws Exception {
+    public ArrayList<Deposito> getDepositos(int codContaBancaria) throws Exception {
 	        if (codContaBancaria < 1) {
 	            throw new Exception("Depositos: busca por depósitos com código de conta bancária inválido");
 	        }
@@ -88,7 +88,7 @@ public class Depositos {
 			ArrayList<Deposito> registros = new ArrayList<Deposito>();
 			while((linha = streamIn.readLine()) != null){
 				String[] valores = linha.split(",");
-				int codContaBancariaAtual = valores[1];
+				int codContaBancariaAtual = Integer.parseInt(valores[1]);
 				if(codContaBancaria == codContaBancariaAtual){
 					registros.add(
 						new Deposito(Integer.parseInt(valores[0]),
@@ -98,6 +98,6 @@ public class Depositos {
 				}
 			}
 			streamIn.close();
-			return (Deposito[])registros.toArray();
+			return registros;
     }
 }

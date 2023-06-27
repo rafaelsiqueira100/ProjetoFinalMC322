@@ -1,6 +1,6 @@
 package arquivos;
 
-import DBOs.Cobranca;
+import entidades.Cobranca;
 import entidades.Banco;
 
 import java.io.BufferedReader;
@@ -8,7 +8,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Cobrancas {
 	/**
@@ -17,18 +20,18 @@ public class Cobrancas {
      */
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "cobrancas.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\cobrancas.csv";
     public Cobrancas() {    }
 
     public int quantasCobrancas(int codContaBancaria) throws Exception {
         if (codContaBancaria < 1) {
             throw new Exception("Cobrancas: busca por cobranças com código de conta bancária inválido");
         }
-        return getCobrancas(codContaBancaria).length;
+        return getCobrancas(codContaBancaria).size();
     }
 
 
-    public Cobranca[] getCobrancas(int codContaBancaria) throws Exception {
+    public ArrayList<Cobranca> getCobrancas(int codContaBancaria) throws Exception {
         if(codContaBancaria < 1){
 			throw new Exception("Cobrancas: busca por cobranças pagas com código de conta bancária inválido");
 		}
@@ -36,7 +39,7 @@ public class Cobrancas {
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
         while((linha = streamIn.readLine()) != null){
-            String[] valores = linha.split(',');
+            String[] valores = linha.split(",");
             boolean foiPaga = Boolean.parseBoolean(valores[3]);
             int codContaBancariaAtual = Integer.parseInt(valores[1]);
             if(codContaBancariaAtual == codContaBancaria){
@@ -45,7 +48,7 @@ public class Cobrancas {
                     codContaBancaria,
                     Integer.parseInt(valores[2]),
                     foiPaga, 
-                    Date.converterData(valores[4]),
+                    converterData(valores[4]),
                     new BigDecimal(Float.parseFloat(valores[5]))
                 ));
             }
@@ -54,7 +57,7 @@ public class Cobrancas {
 		return registros;
     }
 
-    public Cobranca[] getCobrancasPagas(int codContaBancaria)throws Exception{
+    public ArrayList<Cobranca> getCobrancasPagas(int codContaBancaria)throws Exception{
 		if(codContaBancaria < 1){
 			throw new Exception("Cobrancas: busca por cobranças pagas com código de conta bancária inválido");
 		}
@@ -62,7 +65,7 @@ public class Cobrancas {
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
         while((linha = streamIn.readLine()) != null){
-            String[] valores = linha.split(',');
+            String[] valores = linha.split(",");
             boolean foiPaga = Boolean.parseBoolean(valores[3]);
             int codContaBancariaAtual = Integer.parseInt(valores[1]);
             if(foiPaga && codContaBancariaAtual == codContaBancaria){
@@ -71,7 +74,7 @@ public class Cobrancas {
                     codContaBancaria,
                     Integer.parseInt(valores[2]),
                     foiPaga, 
-                    Date.converterData(valores[4]),
+                    converterData(valores[4]),
                     new BigDecimal(Float.parseFloat(valores[5]))
                 ));
             }
@@ -79,6 +82,21 @@ public class Cobrancas {
         streamIn.close();
 		return registros;
 	}
+    //método que converte data dd/mm/YYYY
+    public static Date converterData(String dataString){
+            //localDate date;
+            //String dataSplitted[] = dataString.split("/");
+            //birth = LocalDate.of(Integer.valueOf(dataSplitted[2]), Integer.valueOf(dataSplitted[1]), Integer.valueOf(dataSplitted[0]));
+            //String strLocalDate2 = localDate.format();
+            DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+            try{
+                    Date data = df.parse(dataString);
+                    return data;
+            }
+            catch(Exception e){
+                    return null;
+            }
+    }
     public void pagar(int codCobranca) throws Exception {
         if (codCobranca < 1) {
             throw new Exception("Cobrancas: pagamento de cobrança com código inválido");

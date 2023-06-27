@@ -5,7 +5,7 @@
  */
 package main;
 
-import DBOs.ContaBancaria;
+import entidades.ContaBancaria;
 import javax.swing.JOptionPane;
 //criar um radiobutton para escolher extrato
 /**

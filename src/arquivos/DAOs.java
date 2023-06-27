@@ -1,5 +1,13 @@
 package arquivos;
-
+import arquivos.Clientes;
+import arquivos.Bancos;
+import arquivos.ContasBancarias;
+import arquivos.Saques;
+import arquivos.Depositos;
+import arquivos.Emprestimos;
+import arquivos.Cobrancas;
+import arquivos.Boletos;
+import arquivos.TipoCobrancas;
 public class DAOs {
     private static Clientes        tabelaClientes;
     private static Bancos          tabelaBancos;

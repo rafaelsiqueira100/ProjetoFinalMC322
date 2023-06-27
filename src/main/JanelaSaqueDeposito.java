@@ -5,8 +5,8 @@
  */
 package main;
 
-import DAOs.DAOs;
-import DBOs.ContaBancaria;
+import arquivos.DAOs;
+import entidades.ContaBancaria;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
@@ -37,7 +37,7 @@ public class JanelaSaqueDeposito extends javax.swing.JFrame {
             this.setTitle("Realizar Depósito");
         }
         
-       //lblBanco.setText(DAOs.getTabelaContasBancarias().getBanco(contaAtual).getNome());
+       lblBanco.setText(DAOs.getTabelaContasBancarias().getBanco(contaAtual).getNome());
        lblSaldo.setText(contaAtual.getSaldo().toString());
     }
 
@@ -152,13 +152,13 @@ public class JanelaSaqueDeposito extends javax.swing.JFrame {
         } else {
             try {
                 if (this.ehSaque) {
-                    //DAOs.getTabelaContasBancarias().descontar(contaAtual, new BigDecimal(txtValor.getText()));
-                    //DAOs.getTabelaSaques()         .inserir  (contaAtual.getCodContaBancaria(), new BigDecimal(txtValor.getText()));
+                    DAOs.getTabelaContasBancarias().descontar(contaAtual, new BigDecimal(txtValor.getText()));
+                    DAOs.getTabelaSaques()         .inserir  (contaAtual.getCodContaBancaria(), new BigDecimal(txtValor.getText()));
                 
                     JOptionPane.showMessageDialog(this, "Saque feito com sucesso!");
                 } else {
-                    //DAOs.getTabelaContasBancarias().incrementar(contaAtual, new BigDecimal(txtValor.getText()));
-                    //DAOs.getTabelaDepositos()      .inserir    (contaAtual.getCodContaBancaria(), new BigDecimal(txtValor.getText()));
+                    DAOs.getTabelaContasBancarias().incrementar(contaAtual, new BigDecimal(txtValor.getText()));
+                    DAOs.getTabelaDepositos()      .inserir    (contaAtual.getCodContaBancaria(), new BigDecimal(txtValor.getText()));
                 
                     JOptionPane.showMessageDialog(this, "Depósito feito com sucesso!");
                 }

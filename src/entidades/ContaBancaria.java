@@ -101,16 +101,6 @@ public class ContaBancaria {
         final int PRIMO   = 13;
 
         int hashCode = INICIAL;
-
-        Integer envoltorioCodContaBancaria = new Integer (this.codContaBancaria);
-        Integer envoltorioCodCliente       = new Integer (this.codCliente);
-        Integer envoltorioCodBanco         = new Integer (this.codBanco);
-        
-        hashCode = PRIMO * hashCode + envoltorioCodContaBancaria.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodCliente.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodBanco.hashCode();
         
         hashCode = PRIMO * hashCode + this.senha.hashCode();
         hashCode = PRIMO * hashCode + this.saldo.hashCode();

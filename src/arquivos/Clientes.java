@@ -1,43 +1,44 @@
 package arquivos;
 
-import DBOs.Cliente;
+import entidades.Cliente;
 import entidades.Banco;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Clientes extends Dao {
+public class Clientes  {
 	/**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "clientes.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\clientes.csv";
     public Clientes() throws Exception {
         super();
     }
-    private Cliente[] getClientes() throws Exception {
+    private ArrayList<Cliente> getClientes() throws Exception {
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
         ArrayList<entidades.Cliente> registros = new ArrayList<>();
         while((linha = streamIn.readLine()) != null){
-            String[] valores = linha.split(',');
+            String[] valores = linha.split(",");
             registros.add(
                 new Cliente(Integer.parseInt(valores[0]),
                 valores[1]
               ));
         }
         streamIn.close();
-        return registros.toArray();
+        return registros;
     }
     public int getProximoCodigo() throws Exception{
-        Cliente[] clientes = getClientes();
-        int codigoMaximo = -1;
+        ArrayList<Cliente> clientes = getClientes();
+        int codigoMaximo = 0;
         for(entidades.Cliente c: clientes){
             if(c.getCodCliente() > codigoMaximo)
                 codigoMaximo = c.getCodCliente();
@@ -56,7 +57,7 @@ public class Clientes extends Dao {
         }            
         try{
             int proximoCodigoCliente = getProximoCodigo();
-            streamOut = new BufferedWriter( new FileReader(nomeArquivo));
+            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
             streamOut.write(
                 Integer.toString(proximoCodigoCliente) +','+
                 nomeCliente 

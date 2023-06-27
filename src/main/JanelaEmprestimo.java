@@ -5,9 +5,9 @@
  */
 package main;
 
-import DAOs.DAOs;
-import DBOs.Banco;
-import DBOs.ContaBancaria;
+import arquivos.DAOs;
+import entidades.Banco;
+import entidades.ContaBancaria;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +29,7 @@ public class JanelaEmprestimo extends javax.swing.JFrame {
         
         this.contaAtual = contaAtual;
         
-        //lblBanco.setText(DAOs.getTabelaContasBancarias().getBanco(contaAtual).getNome());
+        lblBanco.setText(DAOs.getTabelaContasBancarias().getBanco(contaAtual).getNome());
         lblSaldo.setText(contaAtual.getSaldo().toString());
     }
 

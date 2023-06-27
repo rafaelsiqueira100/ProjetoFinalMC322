@@ -5,7 +5,7 @@
  */
 package main;
 
-import DAOs.DAOs;
+import arquivos.DAOs;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
@@ -163,7 +163,7 @@ public class JanelaBanco extends javax.swing.JFrame {
             BigDecimal emprestimoMinimo     = new BigDecimal(txtEmprestimoMinimo.getText());
             BigDecimal emprestimoMaximo     = new BigDecimal(txtEmprestimoMaximo.getText());
             
-            //DAOs.getTabelaBancos().inserir(nomeBanco, jurosPoupanca, jurosEmprestimo, mesesParaEmprestimo, emprestimoMinimo, emprestimoMaximo);
+            DAOs.getTabelaBancos().inserir(nomeBanco, jurosPoupanca, jurosEmprestimo, mesesParaEmprestimo, emprestimoMinimo, emprestimoMaximo);
             
             JOptionPane.showMessageDialog(this, "Banco cadastrado com sucesso!");
             

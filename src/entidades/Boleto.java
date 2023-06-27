@@ -105,16 +105,6 @@ if(operacao == null || operacao.equals("")){
 
            int hashCode = INICIAL;
 
-           Integer envoltorioCodBoleto   = new Integer (this.codBoleto);
-           Integer envoltorioCodCobranca    = new Integer (this.codCobranca );
-           Integer envoltorioCodAutenticacao  = new Integer (this.codAutenticacao);
-
-
-          hashCode = PRIMO * hashCode + envoltorioCodBoleto.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodCobranca.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodAutenticacao.hashCode();
         hashCode = PRIMO * hashCode + this.operacao.hashCode();
           hashCode = PRIMO * hashCode + this.valor.hashCode();
            hashCode = PRIMO * hashCode + this.dataDeGeracao.hashCode();

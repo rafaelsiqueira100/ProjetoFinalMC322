@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import entidades.Deposito;
 import entidades.Emprestimo;
 
-public class Emprestimos  extends Dao {
+public class Emprestimos  {
     public Emprestimos() throws Exception {
         super();
     }
@@ -22,17 +22,17 @@ public class Emprestimos  extends Dao {
     
 	private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "emprestimos.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\emprestimos.csv";
     public int getProximoCodigo() throws Exception{
-            Emprestimo[] emprestimos = getEmprestimos();
-            int codigoMaximo = -1;
+            ArrayList<Emprestimo> emprestimos = getEmprestimos();
+            int codigoMaximo = 0;
             for(Emprestimo e: emprestimos){
                 if(e.getCodEmprestimo() > codigoMaximo)
                     codigoMaximo = e.getCodEmprestimo();
             }
             return codigoMaximo + 1;
     }
-    public Emprestimo[] getEmprestimos() throws Exception {
+    public ArrayList<Emprestimo> getEmprestimos() throws Exception {
 		streamIn = new BufferedReader( new FileReader(nomeArquivo));
 		String linha;
 		ArrayList<Emprestimo> registros = new ArrayList<Emprestimo>();
@@ -47,7 +47,7 @@ public class Emprestimos  extends Dao {
 			));
 		}
 		streamIn.close();
-		return (Emprestimo[])registros.toArray();
+		return registros;
 
     }
     public int inserir(int codContaBancaria, int mesesParaPagar, BigDecimal valorOriginal) throws Exception {

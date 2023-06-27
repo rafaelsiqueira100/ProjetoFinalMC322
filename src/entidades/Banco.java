@@ -122,17 +122,8 @@ public class Banco {
 
         int hashCode = INICIAL;
 
-        Integer envoltorioCodBanco        = new Integer(this.codBanco);
-        Integer envoltorioMesesemprestimo = new Integer(this.mesesEmprestimo);
-        Float   envoltorioJurosPoupanca   = new Float  (this.jurosPoupanca);
-        Float   envoltorioJurosEmprestimo = new Float  (this.jurosEmprestimo);
 
-
-        hashCode = PRIMO * hashCode + envoltorioCodBanco.hashCode();
         hashCode = PRIMO * hashCode + this.nome.hashCode();
-        hashCode = PRIMO * hashCode + envoltorioJurosEmprestimo.hashCode();
-        hashCode = PRIMO * hashCode + envoltorioJurosPoupanca.hashCode();
-        hashCode = PRIMO * hashCode + envoltorioMesesemprestimo.hashCode();
         hashCode = PRIMO * hashCode + this.emprestimoMinimo.hashCode();
         hashCode = PRIMO * hashCode + this.emprestimoMaximo.hashCode();
 

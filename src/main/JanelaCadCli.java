@@ -5,9 +5,10 @@
  */
 package main;
 
-import DAOs.DAOs;
-import DBOs.Banco;
-import DBOs.Cliente;
+import arquivos.DAOs;
+import entidades.Banco;
+import entidades.Cliente;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author ze
  */
 public class JanelaCadCli extends javax.swing.JFrame {
-    private Banco[] bancos;
+    private ArrayList<Banco> bancos;
     
     /**
      * Creates new form JanelaCadCli
@@ -24,11 +25,11 @@ public class JanelaCadCli extends javax.swing.JFrame {
         initComponents();
         
         try {
-            //this.bancos = DAOs.getTabelaBancos().getBancos();
+            this.bancos = DAOs.getTabelaBancos().getBancos();
             
-            //for (Banco banco : this.bancos) {
-            //    cbxBancos.addItem(banco.getNome());
-            //}
+            for (Banco banco : this.bancos) {
+                cbxBancos.addItem(banco.getNome());
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             
@@ -145,20 +146,20 @@ public class JanelaCadCli extends javax.swing.JFrame {
                 String nomeCliente = txtNome.getText();
 
                 String senhaContaBancaria = txtSenha.getText();                
-                //Banco  bancoContaBancaria = this.bancos[cbxBancos.getSelectedIndex()];
-                int    codAgencia         = Integer.parseInt((String)cbxBancos.getSelectedItem());
+                Banco  bancoContaBancaria = this.bancos.get(cbxBancos.getSelectedIndex());
+                int    codAgencia         = Integer.parseInt((String)jComboBox1.getSelectedItem());
 
-                //int codigoDoInserido = DAOs.getTabelaClientes().inserir(nomeCliente);
+                int codigoDoInserido = DAOs.getTabelaClientes().inserir(nomeCliente);
                 
-                //if (codigoDoInserido > 0){ //A operação deu certo
-                //    DAOs.getTabelaContasBancarias().inserir(codigoDoInserido, bancoContaBancaria.getCodBanco(), senhaContaBancaria, codAgencia);
+                if (codigoDoInserido > 0){ //A operação deu certo
+                    DAOs.getTabelaContasBancarias().inserir(codigoDoInserido, bancoContaBancaria.getCodBanco(), senhaContaBancaria, codAgencia);
                     
                     JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
                     
                     this.dispose();
-                //} else {
-                //    JOptionPane.showMessageDialog(this, "Não foi possível realizar seu cadastro");
-                //}
+                } else {
+                    JOptionPane.showMessageDialog(this, "Não foi possível realizar seu cadastro");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

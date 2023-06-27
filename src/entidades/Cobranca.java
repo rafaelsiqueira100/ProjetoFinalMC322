@@ -1,5 +1,5 @@
 package entidades;
-import java.sql.Date;
+import java.util.Date;
 import java.math.BigDecimal;
 /**
 *
@@ -101,18 +101,6 @@ if(dataDeVencimento == null){
            final int PRIMO   = 13;
            
            int hashCode = INICIAL;
-           
-           Integer envoltorioCodContaBancaria    = new Integer (this.codContaBancaria);
-           Integer envoltorioCodCobranca    = new Integer (this.codCobranca );
-           Integer envoltorioCodTipoCobranca  = new Integer (this.codTipoCobranca);
-           Boolean envoltorioFoiPaga = new Boolean(this.foiPaga);
-           
-          hashCode = PRIMO * hashCode + envoltorioCodContaBancaria.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodCobranca.hashCode();
-        
-        hashCode = PRIMO * hashCode + envoltorioCodTipoCobranca.hashCode();
-        hashCode = PRIMO * hashCode + envoltorioFoiPaga.hashCode();
           hashCode = PRIMO * hashCode + this.valor.hashCode();
            hashCode = PRIMO * hashCode + this.dataDeVencimento.hashCode();
            

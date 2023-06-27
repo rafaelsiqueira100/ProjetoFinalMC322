@@ -6,21 +6,27 @@ import entidades.Cliente;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ContasBancarias {
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "contasbancarias.csv";
-    private static final String nomeArquivoBanco = "bancos.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\contasbancarias.csv";
+    private static final String nomeArquivoBanco = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
     public ContasBancarias() {    }
     
     public int getProximoCodigo() throws Exception{
-        ContaBancaria[] contasBancarias = getContasBancaria();
-        int codigoMaximo = -1;
+        ArrayList<ContaBancaria> contasBancarias = getContasBancarias();
+        int codigoMaximo = 0;
         for(ContaBancaria c: contasBancarias){
             if(c.getCodContaBancaria() > codigoMaximo)
                 codigoMaximo = c.getCodContaBancaria();
@@ -47,7 +53,7 @@ public class ContasBancarias {
         int proximoCodigoContaBancaria = getProximoCodigo();
         try{
             int proximoCodigo = getProximoCodigo();
-            streamOut = new BufferedWriter( nomeArquivo);
+            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
             streamOut.write(
                 Integer.toString(proximoCodigo) +","+
                 Integer.toString(codCliente) +","+
@@ -64,7 +70,25 @@ public class ContasBancarias {
         return 1;
     }
 
-
+    public ArrayList<ContaBancaria> getContasBancarias() throws Exception { 
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        ArrayList<ContaBancaria> registros = new ArrayList<ContaBancaria>();
+        String linha;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(",");
+            registros.add( new ContaBancaria(
+                    Integer.parseInt(valores[0]),
+                    Integer.parseInt(valores[1]),
+                    Integer.parseInt(valores[2]),
+                    valores[3],
+                    new BigDecimal(Float.parseFloat(valores[4])),
+                    valores[5]
+              ));
+        }
+        
+        streamIn.close();
+        return registros;
+    }
     
     public ContaBancaria getContaBancaria(String senha) throws Exception {
         if (senha == null || senha.equals("")) {
@@ -95,9 +119,9 @@ public class ContasBancarias {
         }
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
-        int codBanco;
+        int codBanco = -1;
         while((linha = streamIn.readLine()) != null){
-            String[] valores = linha.split(',');
+            String[] valores = linha.split(",");
             int codContaBancaria = Integer.parseInt(valores[0]);
             if(codContaBancaria == conta.getCodContaBancaria()){
                 codBanco = Integer.parseInt(valores[2]);
@@ -106,24 +130,23 @@ public class ContasBancarias {
         streamIn.close();
 
         streamIn = new BufferedReader( new FileReader(nomeArquivoBanco));
-        String linha;
         ArrayList<Banco> registros = new ArrayList<Banco>();
         while((linha = streamIn.readLine()) != null){
-            String[] valores = linha.split(',');
-            int codBancoAtual = valores[0];
+            String[] valores = linha.split(",");
+            int codBancoAtual = Integer.parseInt(valores[0]);
             if(codBancoAtual == codBanco){
-                registros.add(
-                    new Banco(Integer.parseInt(valores[0]),
+                streamIn.close();
+                    return new Banco(Integer.parseInt(valores[0]),
                     valores[1],
                     Float.parseFloat(valores[2]),
                     Float.parseFloat(valores[3]),
                     new BigDecimal(Float.parseFloat(valores[4])),
                     new BigDecimal(Float.parseFloat(valores[5])),
-                    Integer.parseInt(valores[6])));
+                    Integer.parseInt(valores[6]));
             }
         }
         streamIn.close();
-        return registros.toArray();
+        return null;
     }
     
     public int descontar(ContaBancaria aDescontar, BigDecimal valorParaDescontar) throws Exception {
@@ -134,44 +157,53 @@ public class ContasBancarias {
         if (valorParaDescontar == null || valorParaDescontar.compareTo(BigDecimal.ZERO) <= 0) {
             throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
         }
-        
-        /*String sql = "UPDATE ContaBancaria SET saldo = saldo - ? WHERE codContaBancaria = ?;";
-        
-        this.bd.prepareStatement(sql);
-        
-        this.bd.setBigDecimal(1, valorParaDescontar);
-        this.bd.setInt       (2, aDescontar.getCodContaBancaria());
-        
-        int resultado = this.bd.executeUpdate();
-        
-        this.bd.commit();
-        
-        return resultado; */
+        try{
+            streamIn = new BufferedReader( new FileReader(nomeArquivoBanco));
+            streamOut = new BufferedWriter( new FileWriter("tmp_"+nomeArquivo));
 
-        codContaBancariaAtual
+            ContaBancaria contaAtual;
+            String linha;
+            while((linha = streamIn.readLine()) != null){
+                String[] valores = linha.split(",");
+                int codContaBancaria = Integer.parseInt(valores[0]);
+                if(codContaBancaria == aDescontar.getCodContaBancaria()){
+                    streamOut.write(
+                        valores[0] + "," 
+                        + valores[1] + "," 
+                        + valores[2] + ","
+                        +valores[3] + "," 
+                        + Float.toString((Float.parseFloat(valores[4])) - valorParaDescontar.floatValue())+ "," 
+                        + valores[5]);
+                }
+                else{
+                    streamOut.write(
+                        valores[0] + "," 
+                        + valores[1] + "," 
+                        + valores[2] + ","
+                        +valores[3] + "," 
+                        + valores[4] + "," 
+                        + valores[5]);
+                }
+            }
+            streamIn.close();
+            streamOut.close();
+            File novo = new File("tmp_"+nomeArquivo);
+            File antigo = new File(nomeArquivo);
+            novo.renameTo(antigo);
+        }
+        catch(IOException e){
+            return -1;
+        }
+
+        return 0;
+
+
+        
 
     }
     
-    public int incrementar(ContaBancaria aIncrementar, BigDecimal valorParaIncrementar) throws Exception {
-        if (aIncrementar == null) {
-            throw new Exception("ContasBancarias: desconto em ContaBancária nula");
-        }
-        
-        if (valorParaIncrementar == null || valorParaIncrementar.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
-        }
-        
-        String sql = "UPDATE ContaBancaria SET saldo = saldo + ? WHERE codContaBancaria = ?;";
-        
-        this.bd.prepareStatement(sql);
-        
-        this.bd.setBigDecimal(1, valorParaIncrementar);
-        this.bd.setInt       (2, aIncrementar.getCodContaBancaria());
-        
-        int resultado = this.bd.executeUpdate();
-        
-        this.bd.commit();
-        
-        return resultado;
+    
+    public int incrementar(ContaBancaria aIncrementar, BigDecimal valorParaIncrementar) throws Exception {        
+        return descontar(aIncrementar, new BigDecimal(-valorParaIncrementar.floatValue()));
     }
 }

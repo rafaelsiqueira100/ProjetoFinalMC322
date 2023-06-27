@@ -75,16 +75,6 @@ if(valor == null || valor.compareTo(zero)<=0){
            final int PRIMO   = 13;
 
            int hashCode = INICIAL;
-
-           Integer envoltorioCodDeposito   = new Integer (this.codDeposito);
-           Integer envoltorioCodContaBancaria    = new Integer (this.codContaBancaria );
-       
-
-
-          hashCode = PRIMO * hashCode + envoltorioCodDeposito.hashCode();
-
-        hashCode = PRIMO * hashCode + envoltorioCodContaBancaria.hashCode();
-
   
        
           hashCode = PRIMO * hashCode + this.valor.hashCode();

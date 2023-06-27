@@ -78,10 +78,6 @@ public class Cliente {
         
         int hashCode = INICIAL;
         
-        Integer envoltorioCodCliente    = new Integer (this.codCliente);
-        
-        
-        hashCode = PRIMO * hashCode + envoltorioCodCliente.hashCode();
         hashCode = PRIMO * hashCode + this.nome.hashCode();
         
         return hashCode;

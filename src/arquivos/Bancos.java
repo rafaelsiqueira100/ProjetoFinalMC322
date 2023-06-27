@@ -1,13 +1,17 @@
 package arquivos;
 
-import DBOs.Banco;
+import entidades.Banco;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Bancos{
 	 /**
@@ -16,20 +20,20 @@ public class Bancos{
      */
     private BufferedReader streamIn;
     private BufferedWriter streamOut;
-    private static final String nomeArquivo = "bancos.csv";
+    private static final String nomeArquivo = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
     public Bancos() throws Exception {
     }
     
     public int quantosBancos() throws Exception {
-        return getBancos().length;
+        return getBancos().size();
     }
     
-    public Banco[] getBancos() throws Exception {
+    public ArrayList<Banco> getBancos() throws Exception {
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
         ArrayList<Banco> registros = new ArrayList<>();
         while((linha = streamIn.readLine()) != null){
-            String[] valores = linha.split(',');
+            String[] valores = linha.split(",");
             registros.add(
                 new Banco(Integer.parseInt(valores[0]),
                 valores[1],
@@ -71,15 +75,15 @@ public class Bancos{
         }
         try{
             int quantosBancos = quantosBancos();
-            streamOut = new BufferedWriter( new FileReader(nomeArquivo));
+            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
             streamOut.write(
                 Integer.toString(quantosBancos+1) +","+
                 nome +","+
                 Float.toString(jurosPoupanca)+","+
                 Float.toString(jurosEmprestimo)+","+
                 Integer.toString(mesesEmprestimo)+","+
-                BigDecimal.toString(emprestimoMinimo)+","+
-                BigDecimal.toString(emprestimoMaximo)
+                emprestimoMinimo.toString()+","+
+                emprestimoMaximo.toString()
             );
             streamOut.close();
         }

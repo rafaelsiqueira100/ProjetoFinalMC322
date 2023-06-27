@@ -5,8 +5,8 @@
  */
 package main;
 
-import DAOs.DAOs;
-import DBOs.ContaBancaria;
+import arquivos.DAOs;
+import entidades.ContaBancaria;
 import java.math.BigDecimal;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -108,8 +108,8 @@ public class JanelaMain extends javax.swing.JFrame {
         try {
             String senha = txtSenha.getText();
         
-            //ContaBancaria contaAtual = DAOs.getTabelaContasBancarias().getContaBancaria(senha);
-            ContaBancaria contaAtual = new ContaBancaria(1,1,1, "abc", new BigDecimal(2.0),"1" );
+            ContaBancaria contaAtual = DAOs.getTabelaContasBancarias().getContaBancaria(senha);
+            //ContaBancaria contaAtual = new ContaBancaria(1,1,1, "abc", new BigDecimal(2.0),"1" );
             if (contaAtual == null) { //Essa conta não existe
                 JOptionPane.showMessageDialog(this, "A senha digitada não existe!");
             } else {
@@ -126,10 +126,10 @@ public class JanelaMain extends javax.swing.JFrame {
 
     private void btnCadCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadCliActionPerformed
         try {
-            //if (DAOs.getTabelaBancos().quantosBancos() > 0)
+            if (DAOs.getTabelaBancos().quantosBancos() > 0)
                 new JanelaCadCli().setVisible(true);
-            //else
-            //    JOptionPane.showMessageDialog(this, "Infelizmente ainda não temos nenhum banco cadastrado");
+            else
+                JOptionPane.showMessageDialog(this, "Infelizmente ainda não temos nenhum banco cadastrado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }        

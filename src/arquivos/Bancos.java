@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Bancos extends Dao {
+public class Bancos{
 	 /**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
@@ -18,31 +18,15 @@ public class Bancos extends Dao {
     private BufferedWriter streamOut;
     private static final String nomeArquivo = "bancos.csv";
     public Bancos() throws Exception {
-        arquivo = new File(Bancos.nomeArquivo);
     }
     
-    public int quantosBancos() throws SQLException {
-        /*String sql = "SELECT COUNT(codBanco) FROM Banco;";
-        
-        this.bd.prepareStatement(sql);
-
-        ResultSet resultadoQuantosBancos = this.bd.executeQuery();
-        
-        int quantosBancos = 0;
-        if (resultadoQuantosBancos.next())
-            quantosBancos = resultadoQuantosBancos.getInt(1);
-        
-        return quantosBancos;*/
-
-        File file = new 
-
-        return quantosBancos;
+    public int quantosBancos() throws Exception {
+        return getBancos().length;
     }
     
-    public Banco[] getBancos() throws SQLException, Exception {
+    public Banco[] getBancos() throws Exception {
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         String linha;
-        int byteRead;
         ArrayList<Banco> registros = new ArrayList<>();
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(',');

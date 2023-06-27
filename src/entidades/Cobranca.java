@@ -23,7 +23,9 @@ public class Cobranca implements Operacao{
  * @param dataDeVencimento data de vencimento da cobran�a
  * @throws Exception caso algum par�metro seja inv�lido
  */
-public Cobranca(int codCobranca , int codContaBancaria , int codTipoCobranca , boolean foiPaga, Date dataDeVencimento, BigDecimal valor )throws Exception {
+public Cobranca(int codCobranca , int codContaBancaria , 
+int codTipoCobranca , boolean foiPaga,
+ Date dataDeVencimento, BigDecimal valor )throws Exception {
     
  if(codCobranca <1){
 	 throw new Exception("Cobranca: inicializa��o com c�digo da cobran�a inv�lido.");

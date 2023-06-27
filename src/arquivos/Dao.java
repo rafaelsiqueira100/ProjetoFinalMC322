@@ -27,20 +27,5 @@ public class Dao {
     public MeuPreparedStatement getBd() {
         return this.bd;
     }
-
-    public int getProximoCodigo(String tabela, String nomeColunaCodigo) throws Exception{
-        
-        String sql = "SELECT MAX("+nomeColunaCodigo+") FROM "+tabela+" ;";
-        
-        this.bd.prepareStatement(sql);
-        
-        ResultSet resultado = this.bd.executeQuery();
-
-        if(resultado.next()){
-            return resultado.getInt(1) + 1;
-        }
-        return -1;
-
-    }
 }
 

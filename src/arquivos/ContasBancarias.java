@@ -2,15 +2,28 @@ package arquivos;
 
 import DBOs.Banco;
 import DBOs.ContaBancaria;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 
-public class ContasBancarias  extends Dao {
-
-    public ContasBancarias() throws Exception {
-        super();
+public class ContasBancarias {
+    private BufferedReader streamIn;
+    private BufferedWriter streamOut;
+    private static final String nomeArquivo = "contasbancarias.csv";
+    public ContasBancarias() {    }
+    
+    public int getProximoCodigo() throws Exception{
+        ContaBancaria[] contasBancarias = getContaBancaria();
+        int codigoMaximo = -1;
+        for(ContaBancaria c: contasBancarias){
+            if(c.getCodContaBancaria() > codigoMaximo)
+                codigoMaximo = c.getCodContaBancaria();
+        }
+        return codigoMaximo + 1;
     }
-
     public int inserir(int codCliente, int codBanco, String senha, int codAgencia) throws Exception {
         if (codCliente < 1) {
             throw new Exception("ContasBancarias: inclusão com código de cliente inválido");
@@ -28,9 +41,9 @@ public class ContasBancarias  extends Dao {
             throw new Exception("ContasBancarias: inclusão com código de agência inválido");
         }
         
-        int proximoCodigoContaBancaria = getProximoCodigo("ContaBancaria", "codContaBancaria");
+        int proximoCodigoContaBancaria = getProximoCodigo();
 
-        String sql = "INSERT INTO ContaBancaria VALUES (?, ?, ?, ?, ?, ?);";
+        /*String sql = "INSERT INTO ContaBancaria VALUES (?, ?, ?, ?, ?, ?);";
         
         this.bd.prepareStatement(sql);
         this.bd.setInt       (1, proximoCodigoContaBancaria);
@@ -44,7 +57,25 @@ public class ContasBancarias  extends Dao {
         
         this.bd.commit();
         
-        return resultado;
+        return resultado;*/
+        try{
+            int proximoCodigo = getProximoCodigo();
+            streamOut = new BufferedWriter( new FileReader(nomeArquivo));
+            streamOut.write(
+                Integer.toString(proximoCodigo) +","+
+                nome +","+
+                Float.toString(jurosPoupanca)+","+
+                Float.toString(jurosEmprestimo)+","+
+                Integer.toString(mesesEmprestimo)+","+
+                BigDecimal.toString(emprestimoMinimo)+","+
+                BigDecimal.toString(emprestimoMaximo)
+            );
+            streamOut.close();
+        }
+        catch(Exception e){
+            return -1;
+        }
+        return 1;
     }
     
     public ContaBancaria getContaBancaria(String senha) throws Exception {

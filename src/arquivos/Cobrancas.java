@@ -1,87 +1,83 @@
 package arquivos;
 
 import DBOs.Cobranca;
+import entidades.Banco;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
-public class Cobrancas extends Dao {
+public class Cobrancas {
 	/**
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    public Cobrancas() throws Exception {
-        super();
-    }
+    private BufferedReader streamIn;
+    private BufferedWriter streamOut;
+    private static final String nomeArquivo = "cobrancas.csv";
+    public Cobrancas() {    }
 
     public int quantasCobrancas(int codContaBancaria) throws Exception {
         if (codContaBancaria < 1) {
             throw new Exception("Cobrancas: busca por cobranças com código de conta bancária inválido");
         }
-
-        int quantasCobrancas = -1;
-
-        String sql = "SELECT COUNT(codCobranca) FROM Cobranca WHERE codContaBancaria = ?;";
-
-        this.bd.prepareStatement(sql);
-
-        this.bd.setInt(1, codContaBancaria);
-
-        ResultSet resultadoQuantasCobrancas = this.bd.executeQuery();
-
-        if (resultadoQuantasCobrancas.next()) {
-            quantasCobrancas = resultadoQuantasCobrancas.getInt(1);
-        }
-
-        return quantasCobrancas;
+        return getCobrancas(codContaBancaria).length;
     }
 
+
     public Cobranca[] getCobrancas(int codContaBancaria) throws Exception {
-        if (codContaBancaria < 1) {
-            throw new Exception("Cobrancas: busca por cobranças com código de conta bancária inválido");
+        if(codContaBancaria < 1){
+			throw new Exception("Cobrancas: busca por cobranças pagas com código de conta bancária inválido");
+		}
+        ArrayList<Cobranca> registros = new ArrayList<>();
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        String linha;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(',');
+            boolean foiPaga = Boolean.parseBoolean(valores[3]);
+            int codContaBancariaAtual = Integer.parseInt(valores[1]);
+            if(codContaBancariaAtual == codContaBancaria){
+                registros.add(
+                    new Cobranca(Integer.parseInt(valores[0]),
+                    codContaBancaria,
+                    Integer.parseInt(valores[2]),
+                    foiPaga, 
+                    Date.converterData(valores[4]),
+                    new BigDecimal(Float.parseFloat(valores[5]))
+                ));
+            }
         }
-
-        Cobranca[] cobrancas = new Cobranca[this.quantasCobrancas(codContaBancaria)];
-
-        String sql = "SELECT * FROM Cobranca WHERE codContaBancaria = ?;";
-
-        this.bd.prepareStatement(sql);
-
-        this.bd.setInt(1, codContaBancaria);
-
-        ResultSet resultadoCobrancas = this.bd.executeQuery();
-
-        int indiceDeInclusao = 0;
-        while (resultadoCobrancas.next()) {
-            cobrancas[indiceDeInclusao] = new Cobranca(resultadoCobrancas.getInt(1), resultadoCobrancas.getInt(2), resultadoCobrancas.getInt(3), resultadoCobrancas.getBoolean(4), resultadoCobrancas.getDate(5), resultadoCobrancas.getBigDecimal(6));
-
-            indiceDeInclusao++;
-        }
-
-        return cobrancas;
+        streamIn.close();
+		return registros;
     }
 
     public Cobranca[] getCobrancasPagas(int codContaBancaria)throws Exception{
 		if(codContaBancaria < 1){
 			throw new Exception("Cobrancas: busca por cobranças pagas com código de conta bancária inválido");
 		}
-		Cobranca[] cobrancasPagas = new Cobranca[this.quantasCobrancas(codContaBancaria)];
-
-		String sql = "SELECT * FROM Cobranca WHERE codContaBancaria = ? and foiPaga = ?;";
-
-		this.bd.prepareStatement(sql);
-
-		this.bd.setInt(1, codContaBancaria);
-
-		this.bd.setBoolean(2, true);
-
-		ResultSet resultadoCobrancasPagas = this.bd.executeQuery();
-
-		int indiceDeInclusao = 0;
-		while(resultadoCobrancasPagas.next()){
-			cobrancasPagas[indiceDeInclusao] = new Cobranca(resultadoCobrancasPagas.getInt(1), resultadoCobrancasPagas.getInt(2), resultadoCobrancasPagas.getInt(3), resultadoCobrancasPagas.getBoolean(4), resultadoCobrancasPagas.getDate(5), resultadoCobrancasPagas.getBigDecimal(6));
-		indiceDeInclusao++;
-		}
-		return cobrancasPagas;
+        ArrayList<Cobranca> registros = new ArrayList<>();
+        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        String linha;
+        while((linha = streamIn.readLine()) != null){
+            String[] valores = linha.split(',');
+            boolean foiPaga = Boolean.parseBoolean(valores[3]);
+            int codContaBancariaAtual = Integer.parseInt(valores[1]);
+            if(foiPaga && codContaBancariaAtual == codContaBancaria){
+                registros.add(
+                    new Cobranca(Integer.parseInt(valores[0]),
+                    codContaBancaria,
+                    Integer.parseInt(valores[2]),
+                    foiPaga, 
+                    Date.converterData(valores[4]),
+                    new BigDecimal(Float.parseFloat(valores[5]))
+                ));
+            }
+        }
+        streamIn.close();
+		return registros;
 	}
     public void pagar(int codCobranca) throws Exception {
         if (codCobranca < 1) {

@@ -3,12 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DBOs;
+package entidades;
 
-/**
- *
- * @author u16189
- */
 public class TipoCobranca {
     private int    codTipoCobranca;
     private String nome;

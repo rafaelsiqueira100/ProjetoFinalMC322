@@ -1,4 +1,4 @@
-package DAOs;
+package arquivos;
 
 import DBOs.Cliente;
 import java.sql.ResultSet;

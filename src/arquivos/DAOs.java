@@ -1,12 +1,6 @@
-package DAOs;
+package arquivos;
 
 import main.MeuPreparedStatement;
-
-/**
- * Classe cujos atributos correspondem aos objetos de acesso ao BD
- * @author Rafael Andre Siqueira
- * @since 2017
- */
 public class DAOs {
     private static MeuPreparedStatement bd;
 

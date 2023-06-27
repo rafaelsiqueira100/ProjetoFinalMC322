@@ -1,4 +1,4 @@
-package DBOs;
+package entidades;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package DAOs;
+package arquivos;
 
 import DBOs.Saque;
 import java.math.BigDecimal;

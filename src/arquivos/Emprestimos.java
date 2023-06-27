@@ -1,12 +1,8 @@
-package DAOs;
+package arquivos;
 
 import java.math.BigDecimal;
 
 public class Emprestimos  extends Dao {
-	/**
-     * Construtor de objeto DAO
-     * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
-     */
     public Emprestimos() throws Exception {
         super();
     }

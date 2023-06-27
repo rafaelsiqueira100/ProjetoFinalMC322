@@ -1,4 +1,4 @@
-package DBOs;
+package entidades;
 
 /**
 * @author Rafael Andre Siqueira

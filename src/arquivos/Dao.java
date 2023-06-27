@@ -1,14 +1,11 @@
 
-package DAOs;
+package arquivos;
 
 import java.sql.ResultSet;
 import main.MeuPreparedStatement;
 
 
-/**
- * @author Rafael Andre Siqueira
- *  Superclasse de todas as classes DAO do projeto 
- */
+
 public class Dao {
     protected MeuPreparedStatement bd;
     

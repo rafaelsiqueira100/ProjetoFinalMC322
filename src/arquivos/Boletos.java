@@ -1,4 +1,4 @@
-package DAOs;
+package arquivos;
 
 public class Boletos  extends Dao {
 	/**

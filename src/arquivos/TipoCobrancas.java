@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAOs;
+package arquivos;
 
 import DBOs.TipoCobranca;
 import java.sql.ResultSet;

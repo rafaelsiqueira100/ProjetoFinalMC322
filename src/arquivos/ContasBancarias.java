@@ -1,4 +1,4 @@
-package DAOs;
+package arquivos;
 
 import DBOs.Banco;
 import DBOs.ContaBancaria;
@@ -6,10 +6,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 public class ContasBancarias  extends Dao {
-	/**
-     * Construtor de objeto DAO
-     * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
-     */
+
     public ContasBancarias() throws Exception {
         super();
     }

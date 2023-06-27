@@ -1,24 +1,24 @@
-package DBOs;
+package entidades;
 import java.math.BigDecimal;
 /**
 *
 * @author Rafael Andre Siqueira
-*  Classe DBO que representa a entidade de Saque
+*  Classe DBO que representa a entidade de Deposito
 */
-public class Saque implements Operacao{
-    private int codSaque;
-    private int codContaBancaria;
-    private BigDecimal valor;
+public class Deposito implements Operacao{
+private int codDeposito;
+private int codContaBancaria;
+private BigDecimal valor;
 /**
  * Construtor do objeto DBO
- * @param codSaque c�digo do saque
+ * @param codDeposito c�digo do Deposito
  * @param codContaBancaria c�digo da conta banc�ria
- * @param valor valor do saque
+ * @param valor valor do Deposito
  * @throws Exception caso algum par�metro seja inv�lido
  */
-public Saque(int codSaque , int codContaBancaria , BigDecimal valor )throws Exception {
+public Deposito(int codDeposito , int codContaBancaria , BigDecimal valor )throws Exception {
 
- if(codSaque <1){
+ if(codDeposito <1){
 	 throw new Exception("Boleto: inicializa��o com c�digo da cobran�a inv�lido.");
  }
  if(codContaBancaria <1){
@@ -28,7 +28,7 @@ BigDecimal zero = new BigDecimal(0.0);
 if(valor == null || valor.compareTo(zero)<=0){
 	throw new Exception("Boleto: inicializa��o com valor do boleto inv�lido.");
 }
-    this.codSaque   = codSaque;
+    this.codDeposito   = codDeposito;
     this.codContaBancaria        = codContaBancaria;
     this.valor  = valor ;
 }
@@ -50,9 +50,9 @@ if(valor == null || valor.compareTo(zero)<=0){
             return true;
         }
 
-        Saque aComparar = (Saque) obj;
+        Deposito aComparar = (Deposito) obj;
 
-        if (this.codSaque != aComparar.getCodSaque()) {
+        if (this.codDeposito != aComparar.getCodDeposito()) {
             return false;
         }
 
@@ -76,12 +76,12 @@ if(valor == null || valor.compareTo(zero)<=0){
 
            int hashCode = INICIAL;
 
-           Integer envoltorioCodSaque   = new Integer (this.codSaque);
+           Integer envoltorioCodDeposito   = new Integer (this.codDeposito);
            Integer envoltorioCodContaBancaria    = new Integer (this.codContaBancaria );
        
 
 
-          hashCode = PRIMO * hashCode + envoltorioCodSaque.hashCode();
+          hashCode = PRIMO * hashCode + envoltorioCodDeposito.hashCode();
 
         hashCode = PRIMO * hashCode + envoltorioCodContaBancaria.hashCode();
 
@@ -97,22 +97,22 @@ if(valor == null || valor.compareTo(zero)<=0){
         * @return o objeto na forma de String
         */
            public  String toString() {
-               return "Saque{" + "codSaque=" + codSaque + ", codContaBancaria=" + codContaBancaria + ", valor=" +valor + '}';
+               return "Deposito{" + "codDeposito=" + codDeposito + ", codContaBancaria=" + codContaBancaria + ", valor=" +valor + '}';
            }
 
 	 /*
  N�o tem construtor de c�pia, pois n�o tem setters
 
-    public Saque(Saque aCopiar) throws Exception */
+    public Deposito(Deposito aCopiar) throws Exception */
     /*
 	N�o tem clone, pois n�o tem setters
     public Object clone() */
     /**
-     * Getter do c�digo do saque
-     * @return o c�digo do saque
+     * Getter do c�digo do Deposito
+     * @return o c�digo do Deposito
      */
-    public  int getCodSaque() {
-        return this.codSaque;
+    public  int getCodDeposito() {
+        return this.codDeposito;
     }
     /**
      * Getter do c�digo da conta banc�ria
@@ -122,8 +122,8 @@ if(valor == null || valor.compareTo(zero)<=0){
         return this.codContaBancaria;
     }
    /**
-     * Getter do valor do saque
-     * @return o valor do saque
+     * Getter do valor do Deposito
+     * @return o valor do Deposito
      */
     public  BigDecimal getValor() {
         return this.valor;

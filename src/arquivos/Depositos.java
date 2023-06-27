@@ -1,14 +1,10 @@
-package DAOs;
+package arquivos;
 
 import DBOs.Deposito;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 public class Depositos  extends Dao {
-	/**
-     * Construtor de objeto DAO
-     * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
-     */
     public Depositos() throws Exception {
         super();
     }

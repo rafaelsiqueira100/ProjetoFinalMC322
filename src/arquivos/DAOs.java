@@ -9,6 +9,7 @@ public class DAOs {
     private static ArquivoClientes        tabelaClientes;
     private static ArquivoBancos          tabelaBancos;
     private static ArquivoContasBancarias tabelaContasBancarias;
+    private static ArquivoContasUniversitarias tabelaContasUniversitarias;
     private static ArquivoSaques          tabelaSaques;
     private static ArquivoDepositos       tabelaDepositos;
     private static ArquivoEmprestimos     tabelaEmprestimos;
@@ -18,6 +19,7 @@ public class DAOs {
             DAOs.tabelaClientes        = new ArquivoClientes();
             DAOs.tabelaBancos          = new ArquivoBancos();
             DAOs.tabelaContasBancarias = new ArquivoContasBancarias();
+            DAOs.tabelaContasUniversitarias = new ArquivoContasUniversitarias();
             DAOs.tabelaSaques          = new ArquivoSaques();
             DAOs.tabelaDepositos       = new ArquivoDepositos();
             DAOs.tabelaEmprestimos     = new ArquivoEmprestimos();
@@ -29,45 +31,30 @@ public class DAOs {
     }
 
 
-    /**
-     * Pega o dao de clientes
-     * @return o dao que d� acesso a tabela de cliente
-     */
     public static ArquivoClientes getTabelaClientes() {
         return tabelaClientes;
     }
-    /**
-     * Pega o dao de bancos
-     * @return o dao que d� acesso a tabela de banco
-     */
+    
     public static ArquivoBancos getTabelaBancos() {
         return tabelaBancos;
     }
-    /**
-     * Pega o dao de contas banc�rias
-     * @return o dao que d� acesso a tabela de conta bancaria
-     */
+    
     public static ArquivoContasBancarias getTabelaContasBancarias() {
         return tabelaContasBancarias;
     }
-    /**
-     * Pega o dao de saques
-     * @return o dao que d� acesso a tabela de saque
-     */
+    
+    public static ArquivoContasUniversitarias getTabelaContasUniversitarias() {
+        return tabelaContasUniversitarias;
+    }
+    
     public static ArquivoSaques getTabelaSaques() {
         return tabelaSaques;
     }
-    /**
-     * Pega o dao de depositos
-     * @return o dao que d� acesso a tabela de deposito
-     */
+    
     public static ArquivoDepositos getTabelaDepositos() {
         return tabelaDepositos;
     }
-    /**
-     * Pega o dao de emprestimos
-     * @return o dao que d� acesso a tabela de emprestimo
-     */
+    
     public static ArquivoEmprestimos getTabelaEmprestimos() {
         return tabelaEmprestimos;
     }

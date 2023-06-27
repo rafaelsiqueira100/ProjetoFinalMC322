@@ -18,16 +18,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ArquivoContasBancarias extends Registro{
-    private BufferedReader streamIn;
-    private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/contasbancarias.csv";
     private static final String nomeArquivoBanco = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
     public ArquivoContasBancarias() {    }
     
     public int getProximoCodigo() throws Exception{
-        ArrayList<ContaBancaria> contasBancarias = getContasBancarias();
+        ArrayList<Conta> contas = getContas();
         int codigoMaximo = 0;
-        for(ContaBancaria c: contasBancarias){
+        for(ContaBancaria c: contas){
             if(c.getCodContaBancaria() > codigoMaximo)
                 codigoMaximo = c.getCodContaBancaria();
         }
@@ -70,7 +68,7 @@ public class ArquivoContasBancarias extends Registro{
         return 1;
     }
 
-    public ArrayList<ContaBancaria> getContasBancarias() throws Exception { 
+    public ArrayList<Conta> getContas() throws Exception { 
         streamIn = new BufferedReader( new FileReader(nomeArquivo));
         ArrayList<ContaBancaria> registros = new ArrayList<ContaBancaria>();
         String linha;

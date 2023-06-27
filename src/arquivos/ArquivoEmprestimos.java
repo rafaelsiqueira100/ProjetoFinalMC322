@@ -12,15 +12,7 @@ import entidades.Emprestimo;
 
 public class ArquivoEmprestimos extends Registro {
     public ArquivoEmprestimos() {
-    }
-    
-    private int codContaBancaria;
-	private int mesesParaPagar;
-	private BigDecimal valorParaQuitar;
-	private BigDecimal valorOriginal;
-    
-	private BufferedReader streamIn;
-    private BufferedWriter streamOut;
+    }    
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
     public int getProximoCodigo() throws Exception{
             ArrayList<Emprestimo> emprestimos = getEmprestimos();

@@ -16,8 +16,6 @@ public class ArquivoClientes extends Registro{
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    private BufferedReader streamIn;
-    private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/clientes.csv";
     public ArquivoClientes() throws Exception {
         super();

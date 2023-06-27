@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 public class ArquivoDepositos extends Registro{
 
-	private BufferedReader streamIn;
-    private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/depositos.csv";
     public ArquivoDepositos() throws Exception {
         super();

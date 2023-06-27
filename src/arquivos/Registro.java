@@ -4,12 +4,16 @@
  */
 package arquivos;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+
 /**
  *
  * @author rafaelsiqueira
  */
 public abstract class Registro {
     public abstract int getProximoCodigo() throws Exception;
-    
+    protected BufferedReader streamIn;
+    protected BufferedWriter streamOut;  
     
 }

@@ -18,9 +18,7 @@ public class ArquivoSaques extends Registro{
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
     public ArquivoSaques() {    }
-	private BufferedReader streamIn;
-    private BufferedWriter streamOut;
-    private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/saques.csv";
+	private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/saques.csv";
 	public int getProximoCodigo() throws Exception{
         ArrayList<Saque> saques = getSaques();
         int codigoMaximo = 0;

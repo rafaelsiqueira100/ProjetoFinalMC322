@@ -18,8 +18,6 @@ public class ArquivoBancos extends Registro{
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    private BufferedReader streamIn;
-    private BufferedWriter streamOut;
     private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
     public ArquivoBancos() throws Exception {
     }

@@ -56,6 +56,7 @@ public class ContaUniversitaria extends Conta{
      * @param obj objeto que ser� comparado
      * @return true, se os conte�dos dos dois objetos s�o compat�veis e exatamente iguais
      */
+    @Override
     public  boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -91,10 +92,7 @@ public class ContaUniversitaria extends Conta{
         if(! this.codAgencia.equals(aComparar.getCodAgencia())){
         	return false;
         }
-        if(! this.RA.equals(aComparar.getRA())){
-            return false;
-        }
-        return true;
+        return  this.RA.equals(aComparar.getRA());
     }
     public String getRA(){
         return this.RA;
@@ -103,6 +101,7 @@ public class ContaUniversitaria extends Conta{
      * M�todo tradicional hashCode
      * @return o c�digo de hash do objeto
      */
+    @Override
     public  int hashCode() {
         final int INICIAL = 2;
         final int PRIMO   = 13;
@@ -120,6 +119,7 @@ public class ContaUniversitaria extends Conta{
      * M�todo tradicional toString
      * @return o objeto na forma de String
      */
+    @Override
     public  String toString() {
         return "ContaUniversitaria{" + "codContaBancaria=" + codContaBancaria + ", senha=" + senha + ", saldo=" + saldo +", codCliente=" +codCliente + ", codBanco=" + codBanco+", codAgencia=" + codAgencia+", RA="+RA+'}';
     }

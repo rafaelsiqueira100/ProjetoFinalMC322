@@ -37,6 +37,7 @@ if(valor == null || valor.compareTo(zero)<=0){
  * @param obj objeto que ser� comparado
  * @return true, se os conte�dos dos dois objetos s�o compat�veis e exatamente iguais
  */
+@Override
     public  boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -60,16 +61,13 @@ if(valor == null || valor.compareTo(zero)<=0){
             return false;
         }
 
-       if (! this.valor.equals((aComparar.getValor()))) {
-            return false;
-        }
-       
-        return true;
+       return (this.valor.equals((aComparar.getValor()))) ;
     }
     /**
      * M�todo tradicional hashCode
      * @return o c�digo de hash do objeto
      */
+@Override
        public  int hashCode() {
            final int INICIAL = 2;
            final int PRIMO   = 13;
@@ -86,6 +84,7 @@ if(valor == null || valor.compareTo(zero)<=0){
         * M�todo tradicional toString
         * @return o objeto na forma de String
         */
+@Override
            public  String toString() {
                return "Deposito{" + "codDeposito=" + codDeposito + ", codContaBancaria=" + codContaBancaria + ", valor=" +valor + '}';
            }
@@ -108,6 +107,7 @@ if(valor == null || valor.compareTo(zero)<=0){
      * Getter do c�digo da conta banc�ria
      * @return o c�digo da conta banc�ria
      */
+@Override
     public  int getCodContaBancaria() {
         return this.codContaBancaria;
     }
@@ -115,6 +115,7 @@ if(valor == null || valor.compareTo(zero)<=0){
      * Getter do valor do Deposito
      * @return o valor do Deposito
      */
+@Override
     public  BigDecimal getValor() {
         return this.valor;
     } 

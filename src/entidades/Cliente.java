@@ -25,11 +25,6 @@ public class Cliente {
         this.codCliente    = codCliente;
         this.nome          = nome;
     }
-    
-    /**
-     * Construtor usado para inserção, logo, ainda não se sabe o código
-     * @param nome nome do cliente
-     */
     public Cliente(String nome) throws Exception {
         if (nome == null || nome.equals("")) {
             throw new Exception ("Cliente: inicializa��o com nome inv�lido.");
@@ -42,6 +37,7 @@ public class Cliente {
 * @param obj objeto que ser� comparado
 * @return true, se os conte�dos dos dois objetos s�o compat�veis e exatamente iguais
 */
+    @Override
  public  boolean equals(Object obj) {
      if (obj == null) {
          return false;
@@ -61,17 +57,13 @@ public class Cliente {
          return false;
      }
      
-     if (! this.nome.equals(aComparar.getNome())) {
-         return false;
-     }
-     
-        
-     return true;
+     return ( this.nome.equals(aComparar.getNome()));
  }
  /**
   * M�todo tradicional hashCode
   * @return o c�digo de hash do objeto
   */
+    @Override
     public  int hashCode() {
         final int INICIAL = 2;
         final int PRIMO   = 13;
@@ -87,6 +79,7 @@ public class Cliente {
      * M�todo tradicional toString
      * @return o objeto na forma de String
      */
+    @Override
         public  String toString() {
             return "Cliente{" + "codCliente=" + codCliente + ", nome=" + nome +  '}';
         }

@@ -7,15 +7,11 @@ import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import entidades.Deposito;
 import entidades.Emprestimo;
 
 public class ArquivoEmprestimos extends Registro {
-    public ArquivoEmprestimos() {
-    }    
-    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
-    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/emprestimos.csv";
-
+    public ArquivoEmprestimos() {}
+    @Override
     public int getProximoCodigo() throws Exception{
             ArrayList<Emprestimo> emprestimos = getEmprestimos();
             int codigoMaximo = 0;
@@ -26,9 +22,9 @@ public class ArquivoEmprestimos extends Registro {
             return codigoMaximo + 1;
     }
     public ArrayList<Emprestimo> getEmprestimos() throws Exception {
-		streamIn = new BufferedReader( new FileReader(nomeArquivo));
+		streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
 		String linha;
-		ArrayList<Emprestimo> registros = new ArrayList<Emprestimo>();
+		ArrayList<Emprestimo> registros = new ArrayList<>();
 		while((linha = streamIn.readLine()) != null){
 			String[] valores = linha.split(",");
 			registros.add(
@@ -57,7 +53,7 @@ public class ArquivoEmprestimos extends Registro {
         }
         try{
             int proximoCodigoEmprestimo = getProximoCodigo();
-            streamOut = new BufferedWriter(new FileWriter(nomeArquivo));
+            streamOut = new BufferedWriter(new FileWriter(NOMEARQUIVO));
             streamOut.write(
                 Integer.toString(proximoCodigoEmprestimo) +","+
                 Integer.toString(codContaBancaria) +","+
@@ -72,4 +68,5 @@ public class ArquivoEmprestimos extends Registro {
         }
         return 1;
     }
+    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\emprestimos.csv";
 }

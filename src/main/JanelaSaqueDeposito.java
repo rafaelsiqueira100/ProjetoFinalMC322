@@ -7,7 +7,6 @@ package main;
 
 import arquivos.DAOs;
 import entidades.Conta;
-import entidades.ContaBancaria;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 
@@ -18,10 +17,6 @@ import javax.swing.JOptionPane;
 public class JanelaSaqueDeposito extends javax.swing.JFrame {
     private Conta contaAtual;
     private boolean       ehSaque;
-    
-    /**
-     * Creates new form JanelaSaqueDeposito
-     */
     public JanelaSaqueDeposito(Conta contaAtual, boolean ehSaque) throws Exception {
         if (contaAtual == null) {
             throw new Exception("JanelaSaqueDeposito: inicialização com ContaBancária nula");
@@ -199,10 +194,8 @@ public class JanelaSaqueDeposito extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new JanelaSaqueDeposito(true).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new JanelaSaqueDeposito(true).setVisible(true);
         });
     }
 

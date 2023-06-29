@@ -2,15 +2,11 @@ package arquivos;
 
 import entidades.Banco;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ArquivoBancos extends Registro{
@@ -18,11 +14,10 @@ public class ArquivoBancos extends Registro{
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
-    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/bancos.csv";
 
     public ArquivoBancos() throws Exception {
     }
+    @Override
     public int getProximoCodigo(){
         return -1;
     }
@@ -31,7 +26,7 @@ public class ArquivoBancos extends Registro{
     }
     
     public ArrayList<Banco> getBancos() throws Exception {
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
         String linha;
         ArrayList<Banco> registros = new ArrayList<>();
         while((linha = streamIn.readLine()) != null){
@@ -77,7 +72,7 @@ public class ArquivoBancos extends Registro{
         }
         try{
             int quantosBancos = quantosBancos();
-            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
+            streamOut = new BufferedWriter( new FileWriter(NOMEARQUIVO));
             streamOut.write(
                 Integer.toString(quantosBancos+1) +","+
                 nome +","+
@@ -94,4 +89,5 @@ public class ArquivoBancos extends Registro{
         }
         return 1;
     }
+    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
 }

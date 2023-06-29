@@ -1,6 +1,5 @@
 package arquivos;
 
-import entidades.Cliente;
 import entidades.Saque;
 
 import java.io.BufferedReader;
@@ -8,19 +7,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class ArquivoSaques extends Registro{
 
-	/**
-     * Construtor de objeto DAO
-     * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
-     */
     public ArquivoSaques() {    }
-	//private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/saques.csv";
-        private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/saques.csv";
-	public int getProximoCodigo() throws Exception{
+    @Override
+    public int getProximoCodigo() throws Exception{
         ArrayList<Saque> saques = getSaques();
         int codigoMaximo = 0;
         for(Saque s: saques){
@@ -29,9 +22,10 @@ public class ArquivoSaques extends Registro{
         }
         return codigoMaximo+1;
     }
-	public ArrayList<Saque> getSaques() throws Exception{
-		ArrayList<Saque> registros = new ArrayList<Saque>();
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+    public ArrayList<Saque> getSaques() throws Exception{
+        ArrayList<Saque> registros;
+        registros = new ArrayList<>();
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
         String linha;
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
@@ -42,8 +36,8 @@ public class ArquivoSaques extends Registro{
                 ));
         }
         streamIn.close();
-		return registros;
-	}
+        return registros;
+    }
 
     public int inserir(int codContaBancaria, BigDecimal valor) throws Exception {
         if (codContaBancaria < 0) {
@@ -55,7 +49,7 @@ public class ArquivoSaques extends Registro{
         }
 		try{
             int proximoCodigoSaque = getProximoCodigo();
-            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
+            streamOut = new BufferedWriter( new FileWriter(NOMEARQUIVO));
             streamOut.write(
                 Integer.toString(proximoCodigoSaque) +","+
                 Integer.toString(codContaBancaria) +","+
@@ -81,8 +75,8 @@ public class ArquivoSaques extends Registro{
 		            throw new Exception("Saques: busca por depósitos com código de conta bancária inválido");
 		        }
 
-				ArrayList<Saque> registros = new ArrayList<Saque>();
-				streamIn = new BufferedReader( new FileReader(nomeArquivo));
+				ArrayList<Saque> registros = new ArrayList<>();
+				streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
 				String linha;
 				while((linha = streamIn.readLine()) != null){
 					String[] valores = linha.split(",");
@@ -98,4 +92,6 @@ public class ArquivoSaques extends Registro{
 				streamIn.close();
 				return registros;
     }
+    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\saques.csv";
+
 }

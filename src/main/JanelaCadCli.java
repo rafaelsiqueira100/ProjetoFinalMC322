@@ -7,7 +7,6 @@ package main;
 
 import arquivos.DAOs;
 import entidades.Banco;
-import entidades.Cliente;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -33,7 +32,6 @@ public class JanelaCadCli extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             
-            e.printStackTrace();
         }
     }
 
@@ -184,7 +182,6 @@ public class JanelaCadCli extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             
-            e.printStackTrace();
         }
     }//GEN-LAST:event_btnCadActionPerformed
 
@@ -220,10 +217,8 @@ public class JanelaCadCli extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JanelaCadCli().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new JanelaCadCli().setVisible(true);
         });
     }
 

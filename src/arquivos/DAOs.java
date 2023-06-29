@@ -1,10 +1,4 @@
 package arquivos;
-import arquivos.ArquivoClientes;
-import arquivos.ArquivoBancos;
-import arquivos.ArquivoContas;
-import arquivos.ArquivoSaques;
-import arquivos.ArquivoDepositos;
-import arquivos.ArquivoEmprestimos;
 public class DAOs {
     private static ArquivoClientes        tabelaClientes;
     private static ArquivoBancos          tabelaBancos;

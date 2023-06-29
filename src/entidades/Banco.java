@@ -66,6 +66,7 @@ public class Banco {
      * @param obj objeto que ser� comparado
      * @return true, se os conte�dos dos dois objetos s�o compat�veis e exatamente iguais
      */
+    @Override
     public  boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -105,17 +106,14 @@ public class Banco {
             return false;
         }
         
-        if (! this.emprestimoMaximo.equals(aComparar.emprestimoMaximo)) {
-            return false;
-        }
-        
-        return true;
+        return ( this.emprestimoMaximo.equals(aComparar.emprestimoMaximo));
     }
     
     /**
      * M�todo tradicional hashCode
      * @return o c�digo de hash do objeto
      */
+    @Override
     public  int hashCode() {
         final int INICIAL = 2;
         final int PRIMO   = 13;
@@ -134,6 +132,7 @@ public class Banco {
      * M�todo tradicional toString
      * @return o objeto na forma de String
      */
+    @Override
     public  String toString() {
         return "Banco{" + "codBanco=" + codBanco + ", nome=" + nome + ", jurosEmprestimo=" + jurosEmprestimo +", jurosPoupanca=" +  jurosPoupanca + ", mesesEmprestimo=" + mesesEmprestimo + ", emprestimoMinimo=" + emprestimoMinimo + ", emprestimoMaximo=" + emprestimoMaximo + '}';
     }
@@ -159,16 +158,10 @@ public class Banco {
     public  String getNome() {
         return this.nome;
     }
-    /**
-     * Getter dos juros para empr�stimo do banco
-     *  @returnos juros para empr�stimo do banco */
     public  float getJurosEmprestimo() {
 
         return this.jurosEmprestimo;
     }
-    /**
-     * Getter dos juros para poupan�a do banco
-     *  @returnos juros para poupan�a do banco */
     public  float getJurosPoupanca() {
         return this.jurosPoupanca;
     }     

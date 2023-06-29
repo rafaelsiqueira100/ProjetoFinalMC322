@@ -8,7 +8,6 @@ package main;
 import arquivos.DAOs;
 import entidades.Banco;
 import entidades.Conta;
-import entidades.ContaBancaria;
 import entidades.ContaUniversitaria;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
@@ -19,10 +18,6 @@ import javax.swing.JOptionPane;
  */
 public class JanelaEmprestimo extends javax.swing.JFrame {
     Conta contaAtual;
-    
-    /**
-     * Creates new form JanelaEmprestimo
-     */
     public JanelaEmprestimo(Conta contaAtual) throws Exception {
         if (contaAtual == null) {
             throw new Exception("JanelaEmprestimo: inicialização com ContaBancária nula");
@@ -242,10 +237,8 @@ public class JanelaEmprestimo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new JanelaEmprestimo().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new JanelaEmprestimo().setVisible(true);
         });
     }
 

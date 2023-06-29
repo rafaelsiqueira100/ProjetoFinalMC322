@@ -2,7 +2,6 @@ package arquivos;
 
 import entidades.Banco;
 import entidades.ContaBancaria;
-import entidades.Cliente;
 import entidades.Conta;
 import entidades.ContaUniversitaria;
 
@@ -13,18 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ArquivoContas extends Registro{
-    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/contas.csv";
-    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/contas.csv";
-
-    //private static final String nomeArquivoBanco = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/bancos.csv";
-    private static final String nomeArquivoBanco = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/bancos.csv";
 
     public ArquivoContas() {    }
     
@@ -56,7 +46,7 @@ public class ArquivoContas extends Registro{
         }
         try{
             int proximoCodigo = getProximoCodigo();
-            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
+            streamOut = new BufferedWriter( new FileWriter(NOMEARQUIVO));
             if(ra == null || ra.equals("")){
                 streamOut.write(
                     Integer.toString(proximoCodigo) +","+
@@ -89,8 +79,8 @@ public class ArquivoContas extends Registro{
     }
 
     public ArrayList<Conta> getContas() throws Exception { 
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
-        ArrayList<Conta> registros = new ArrayList<Conta>();
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
+        ArrayList<Conta> registros = new ArrayList<>();
         String linha;
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
@@ -125,7 +115,7 @@ public class ArquivoContas extends Registro{
         if (senha == null || senha.equals("")) {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
         }        
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
         String linha;
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
@@ -162,7 +152,7 @@ public class ArquivoContas extends Registro{
         if (codContaBancaria < 0) {
             throw new Exception("ContasBancarias: busca por conta com senha inválida");
         }        
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
         String linha;
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
@@ -199,7 +189,7 @@ public class ArquivoContas extends Registro{
         if (conta == null) {
             throw new Exception("ContasBancarias: consulta ao Banco de ContaBancária nula");
         }
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
         String linha;
         int codBanco = -1;
         while((linha = streamIn.readLine()) != null){
@@ -211,8 +201,7 @@ public class ArquivoContas extends Registro{
         }
         streamIn.close();
 
-        streamIn = new BufferedReader( new FileReader(nomeArquivoBanco));
-        ArrayList<Banco> registros = new ArrayList<Banco>();
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVOBANCO));
         while((linha = streamIn.readLine()) != null){
             String[] valores = linha.split(",");
             int codBancoAtual = Integer.parseInt(valores[0]);
@@ -240,7 +229,7 @@ public class ArquivoContas extends Registro{
             throw new Exception("ContasBancarias: desconto de valor inválido em ContaBancária");
         }
         try{
-            streamIn = new BufferedReader( new FileReader(nomeArquivo));
+            streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
             File novoArquivo = new File("temp.csv");
             novoArquivo.createNewFile();
             streamOut = new BufferedWriter( new FileWriter("temp.csv"));
@@ -275,7 +264,7 @@ public class ArquivoContas extends Registro{
             streamIn.close();
             streamOut.close();
             File novo = new File("temp.csv");
-            File antigo = new File(nomeArquivo);
+            File antigo = new File(NOMEARQUIVO);
             novo.renameTo(antigo);
         }
         catch(IOException e){
@@ -293,4 +282,7 @@ public class ArquivoContas extends Registro{
     public int incrementar(Conta aIncrementar, BigDecimal valorParaIncrementar) throws Exception {        
         return descontar(aIncrementar, new BigDecimal(-valorParaIncrementar.floatValue()));
     }
+    
+    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\contas.csv";
+    private static final String NOMEARQUIVOBANCO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
 }

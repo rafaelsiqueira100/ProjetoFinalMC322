@@ -7,8 +7,6 @@ package main;
 
 import arquivos.DAOs;
 import entidades.Conta;
-import entidades.ContaBancaria;
-import java.math.BigDecimal;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -114,7 +112,7 @@ public class JanelaMain extends javax.swing.JFrame {
             if (contaAtual == null) { //Essa conta não existe
                 JOptionPane.showMessageDialog(this, "A senha digitada não existe!");
             } else {
-                String qualNumero = JOptionPane.showInputDialog("Digite a chave na posição " + new Random().nextInt(50));
+                JOptionPane.showInputDialog("Digite a chave na posição " + new Random().nextInt(50));
 
                 //Uma verificação deverá ser feita em cima de "qualNumero"
                 
@@ -168,10 +166,8 @@ public class JanelaMain extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JanelaMain().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new JanelaMain().setVisible(true);
         });
     }
 

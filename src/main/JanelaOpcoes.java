@@ -7,15 +7,11 @@ package main;
 
 import arquivos.DAOs;
 import entidades.Conta;
-import entidades.ContaBancaria;
 import javax.swing.JOptionPane;
 
 public class JanelaOpcoes extends javax.swing.JFrame {
     Conta contaAtual;
     int codContaAtual;
-    /**
-     * Creates new form JanelaOpcoes
-     */
     public JanelaOpcoes(int codContaAtual) throws Exception {
         if (codContaAtual < 0) {
             throw new Exception("JanelaOpcoes: inicialização com ContaBancária nula");
@@ -139,10 +135,8 @@ public class JanelaOpcoes extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new JanelaOpcoes().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            //new JanelaOpcoes().setVisible(true);
         });
     }
 

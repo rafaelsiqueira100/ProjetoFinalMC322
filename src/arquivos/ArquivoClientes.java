@@ -1,14 +1,11 @@
 package arquivos;
 
 import entidades.Cliente;
-import entidades.Banco;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class ArquivoClientes extends Registro{
@@ -16,14 +13,12 @@ public class ArquivoClientes extends Registro{
      * Construtor de objeto DAO
      * @throws Exception  por conta do construtor da superclasse lan�ar exce��o
      */
-    //private static final String nomeArquivo = "/home/rafaelsiqueira/ProjetoFinalMC322/src/arquivos/clientes.csv";
-    private static final String nomeArquivo = "/home/ec2019-ceb/ra243360/MC322/ProjetoFinalMC322/src/arquivos/clientes.csv";
 
     public ArquivoClientes() throws Exception {
         super();
     }
     private ArrayList<Cliente> getClientes() throws Exception {
-        streamIn = new BufferedReader( new FileReader(nomeArquivo));
+        streamIn = new BufferedReader( new FileReader(NOMEARQUIVO));
         String linha;
         ArrayList<entidades.Cliente> registros = new ArrayList<>();
         while((linha = streamIn.readLine()) != null){
@@ -36,6 +31,7 @@ public class ArquivoClientes extends Registro{
         streamIn.close();
         return registros;
     }
+    @Override
     public int getProximoCodigo() throws Exception{
         ArrayList<Cliente> clientes = getClientes();
         int codigoMaximo = 0;
@@ -57,7 +53,7 @@ public class ArquivoClientes extends Registro{
         }            
         try{
             int proximoCodigoCliente = getProximoCodigo();
-            streamOut = new BufferedWriter( new FileWriter(nomeArquivo));
+            streamOut = new BufferedWriter( new FileWriter(NOMEARQUIVO));
             streamOut.write(
                 Integer.toString(proximoCodigoCliente) +','+
                 nomeCliente 
@@ -69,4 +65,5 @@ public class ArquivoClientes extends Registro{
         }
         return 1;
     }
+    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\clientes.csv";
 }

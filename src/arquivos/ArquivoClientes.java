@@ -4,6 +4,7 @@ import entidades.Cliente;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -65,5 +66,5 @@ public class ArquivoClientes extends Registro{
         }
         return 1;
     }
-    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\clientes.csv";
+    private static final String NOMEARQUIVO = new File("").getAbsolutePath().concat("/src/arquivos/clientes.csv");     
 }

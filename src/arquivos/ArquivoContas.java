@@ -283,6 +283,6 @@ public class ArquivoContas extends Registro{
         return descontar(aIncrementar, new BigDecimal(-valorParaIncrementar.floatValue()));
     }
     
-    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\contas.csv";
-    private static final String NOMEARQUIVOBANCO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
+    private static final String NOMEARQUIVOBANCO = new File("").getAbsolutePath().concat("/src/arquivos/bancos.csv"); 
+    private static final String NOMEARQUIVO = new File("").getAbsolutePath().concat("/src/arquivos/contas.csv"); 
 }

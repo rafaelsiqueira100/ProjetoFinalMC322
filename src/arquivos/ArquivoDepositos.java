@@ -4,6 +4,7 @@ import entidades.Deposito;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
@@ -96,5 +97,5 @@ public class ArquivoDepositos extends Registro{
 			streamIn.close();
 			return registros;
     }
-    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\depositos.csv";
+    private static final String NOMEARQUIVO = new File("").getAbsolutePath().concat("/src/arquivos/depositos.csv"); 
 }

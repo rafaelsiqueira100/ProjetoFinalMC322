@@ -4,6 +4,7 @@ import entidades.Banco;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
@@ -89,5 +90,5 @@ public class ArquivoBancos extends Registro{
         }
         return 1;
     }
-    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\bancos.csv";
+    private static final String NOMEARQUIVO = new File("").getAbsolutePath().concat("/src/arquivos/bancos.csv"); 
 }

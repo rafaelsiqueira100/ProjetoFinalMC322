@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import entidades.Emprestimo;
+import java.io.File;
 
 public class ArquivoEmprestimos extends Registro {
     public ArquivoEmprestimos() {}
@@ -68,5 +69,5 @@ public class ArquivoEmprestimos extends Registro {
         }
         return 1;
     }
-    private static final String NOMEARQUIVO = "C:\\Users\\Rafael Siqueira\\OneDrive\\Área de Trabalho\\Projeto Final MC322\\Projeto Prática Profissional\\ProjetoPPII\\ProjetoFinalMC322\\src\\arquivos\\emprestimos.csv";
+    private static final String NOMEARQUIVO = new File("").getAbsolutePath().concat("/src/arquivos/emprestimos.csv");
 }
